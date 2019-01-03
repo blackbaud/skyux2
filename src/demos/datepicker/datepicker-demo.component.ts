@@ -20,8 +20,8 @@ export class SkyDatepickerDemoComponent implements OnInit {
   public selectedDate = '4/4/2017';
   public reactiveForm: FormGroup;
 
-  public get reactiveDate() {
-    return this.reactiveForm.get('selectedDate');
+  public get reactiveDate(): FormControl {
+    return this.reactiveForm.get('selectedDate') as FormControl;
   }
 
   constructor(

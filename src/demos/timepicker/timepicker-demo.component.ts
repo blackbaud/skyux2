@@ -23,8 +23,8 @@ export class SkyTimepickerDemoComponent implements OnInit {
   public selectedTime3: any = '02:00:00-0400';
   public reactiveForm: FormGroup;
 
-  public get reactiveTime() {
-    return this.reactiveForm.get('time');
+  public get reactiveTime(): FormControl {
+    return this.reactiveForm.get('time') as FormControl;
   }
 
   constructor(
@@ -40,7 +40,5 @@ export class SkyTimepickerDemoComponent implements OnInit {
   public clearSelectedTimes() {
     this.selectedTime1 = undefined;
     this.reactiveTime.setValue(undefined);
-
-    console.log('Form value:', this.reactiveForm.value);
   }
 }
