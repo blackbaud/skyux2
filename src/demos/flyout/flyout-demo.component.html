@@ -1,7 +1,18 @@
 <sky-list
   [data]="users"
   [defaultView]="grid">
-  <sky-list-view-grid #grid>
+
+  <sky-list-toolbar>
+    <sky-list-column-selector-action
+      [gridView]="grid"
+    >
+    </sky-list-column-selector-action>
+  </sky-list-toolbar>
+
+  <sky-list-view-grid
+    [highlightedRowId]="highlightedRowId"
+    #grid
+  >
     <sky-grid-column
       [locked]="true"
       [template]="customTemplate">

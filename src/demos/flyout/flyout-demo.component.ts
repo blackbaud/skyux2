@@ -3,7 +3,6 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
-  Renderer2,
   ViewChild
 } from '@angular/core';
 
@@ -25,14 +24,7 @@ import { ListItemModel, SkyListViewGridComponent } from '../../../dist/core';
 
 @Component({
   selector: 'sky-flyout-demo',
-  templateUrl: './flyout-demo.component.html',
-  styles: [`
-  ::ng-deep .sky-grid-row.highlighted {
-      border-top: 1px solid #007ca6;
-      box-shadow: 0px 0px 0px 3px inset #007ca6; // TODO: add this class somewhere more appropriate & use $sky-text-color-action-primary
-    }
-  }
-  `]
+  templateUrl: './flyout-demo.component.html'
 })
 export class SkyFlyoutDemoComponent implements AfterViewChecked {
   public users = Observable.of([
@@ -45,17 +37,14 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
   public flyout: SkyFlyoutInstance<SkyFlyoutDemoInternalComponent>;
 
   // FLYOUT ITERATOR STUFF
-  @ViewChild('grid', { read: ElementRef })
-  public gridRef: ElementRef;
+  public highlightedRowId: string;
   @ViewChild(SkyListViewGridComponent)
   public listViewGridComponent: SkyListViewGridComponent;
   private listState: ListItemModel[];
-  private selectedRowId: string;
   private openFlyoutStream = new Subject<boolean>();
 
   constructor(
-    private flyoutService: SkyFlyoutService,
-    private renderer: Renderer2
+    private flyoutService: SkyFlyoutService
   ) { }
 
   public ngAfterViewChecked(): void {
@@ -153,36 +142,34 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
   }
 
   private initIterators(record: any, flyout: SkyFlyoutInstance<any>) {
-    this.removeAllRowHighlights();
-    this.highlightRow(record.id);
-    this.selectedRowId = record.id;
+    this.highlightedRowId = record.id;
 
     // Remove highlights when flyout is closed.
     flyout.closed
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        this.removeAllRowHighlights();
+        this.highlightedRowId = undefined;
     });
 
     flyout.iteratorPreviousButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let previous = this.stepToItemInArray(this.listState, this.selectedRowId, -1);
+        let previous = this.stepToItemInArray(this.listState, this.highlightedRowId, -1);
         this.openRecord(previous.data);
     });
 
     flyout.iteratorNextButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let next = this.stepToItemInArray(this.listState, this.selectedRowId, 1);
+        let next = this.stepToItemInArray(this.listState, this.highlightedRowId, 1);
         this.openRecord(next.data);
     });
 
-    if (this.isFirstElementInArray(this.selectedRowId, this.listState)) {
+    if (this.isFirstElementInArray(this.highlightedRowId, this.listState)) {
       flyout.iteratorPreviousButtonDisabled = true;
     }
 
-    if (this.isLastElementInArray(this.selectedRowId, this.listState)) {
+    if (this.isLastElementInArray(this.highlightedRowId, this.listState)) {
       flyout.iteratorNextButtonDisabled = true;
     }
   }
@@ -209,17 +196,5 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
       return true;
     }
     return false;
-  }
-
-  private highlightRow(id: string) {
-    let row = this.gridRef.nativeElement.querySelector(`tbody tr[sky-cmp-id="${id}"]`);
-    this.renderer.addClass(row, 'highlighted');
-  }
-
-  private removeAllRowHighlights() {
-    let rows = this.gridRef.nativeElement.querySelectorAll('tbody tr');
-    rows.forEach((row: HTMLElement) => {
-      this.renderer.removeClass(row, 'highlighted');
-    });
   }
 }
