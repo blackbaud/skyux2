@@ -1,3 +1,30 @@
+# 2.36.0 (2018-12-21)
+
+- Added iterator buttons to the flyout component. [blackbaud/skyux-flyout#10](https://github.com/blackbaud/skyux-flyout/pull/10) (Thanks @Theaggarwal)
+- Fixed datepicker and timepicker components to properly transform provided values on initial load in reactive forms. [blackbaud/skyux-datetime#7](https://github.com/blackbaud/skyux-datetime/issues/7)
+- Fixed grid component to only listen to `mousemove` and `mouseup` events while resizing columns. [blackbaud/skyux-grids#25](https://github.com/blackbaud/skyux-grids/pull/25)
+- Fixed toast service to remove toaster component if all toast component instances have been closed. [blackbaud/skyux-toast#9](https://github.com/blackbaud/skyux-toast/pull/9)
+- Updated flyout service to utilize `SkyDynamicComponentService`. [blackbaud/skyux-flyout#9](https://github.com/blackbaud/skyux-flyout/pull/9)
+- Updated modal dependencies to ensure proper modal host component removal [blackbaud/skyux-modals#20](https://github.com/blackbaud/skyux-modals/pull/20)
+- Updated toast service to utilize `SkyDynamicComponentService` [blackbaud/skyux-toast#6](https://github.com/blackbaud/skyux-toast/pull/6)
+
+# 2.35.0 (2018-12-19)
+
+- Added multiselect feature to display column of checkboxes on grid component. [blackbaud/skyux-grids#6](https://github.com/blackbaud/skyux-grids/pull/6)
+- Fixed `SkyDynamicComponentService` to fully destroy components which are dynamically removed. [blackbaud/skyux-core#55](https://github.com/blackbaud/skyux-core/pull/55)
+- Fixed repeater component to properly handle overflow content. [blackbaud/skyux-lists#9](https://github.com/blackbaud/skyux-lists/pull/9)
+- Fixed repeater item component to vertically align context menus and checkboxes correctly. [blackbaud/skyux-lists#10](https://github.com/blackbaud/skyux-lists/pull/10)
+- Fixed vertical tabset group component to not accept clicks and have proper visual styles when disabled [blackbaud/skyux-tabs#7](https://github.com/blackbaud/skyux-tabs/pull/7)
+
+
+# 2.34.0 (2018-12-14)
+
+- Added ability to prevent modals from closing. [blackbaud/skyux-modals#7](https://github.com/blackbaud/skyux-modals/pull/7)
+- Fixed section forms in modals to set minimum height of 460px. [blackbaud/skyux-modals#18](https://github.com/blackbaud/skyux-modals/pull/18)
+- Fixed modal service to prevent errors during initialization. [blackbaud/skyux-modals#13](https://github.com/blackbaud/skyux-modals/pull/13)
+- Fixed wait component to prevent tab navigation during blocking waits. [blackbaud/skyux-indicators#4](https://github.com/blackbaud/skyux-indicators/pull/4)
+- Fixed tile component's help button to display by default when consumer provides `helpClick` listener. [blackbaud/skyux-tiles#18](https://github.com/blackbaud/skyux-tiles/pull/18)
+
 # 2.33.1 (2018-12-11)
 
 - Fixed progress indicator component's `progressChanges` emitter to only fire after all Angular lifecycle hooks have completed. [blackbaud/skyux-progress-indicator#3](https://github.com/blackbaud/skyux-progress-indicator/pull/3)

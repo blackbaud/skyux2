@@ -3,7 +3,18 @@ import {
   OnInit
 } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
+
+import {
+  Subject
+} from 'rxjs';
+
+import {
+  SkyGridMessage,
+  SkyGridSelectedRowsModelChange
+} from '@skyux/grids';
 
 import {
   ListSortFieldSelectorModel
@@ -14,32 +25,49 @@ import {
   templateUrl: './grid-demo.component.html'
 })
 export class SkyGridDemoComponent implements OnInit {
-  public items: any[] = [
-    { id: '1', column1: 101, column2: 'Apple', column3: 'Anne eats apples', composite: 'Comp A' },
-    { id: '2', column1: 202, column2: 'Banana', column3: 'Ben eats bananas', composite: 'Comp B' },
-    { id: '3', column1: 303, column2: 'Pear', column3: 'Patty eats pears', composite: 'Comp C' },
-    { id: '4', column1: 404, column2: 'Grape', column3: 'George eats grapes', composite: 'Comp D' },
-    { id: '5', column1: 505, column2: 'Banana', column3: 'Becky eats bananas',
-      composite: 'Comp E' },
-    { id: '6', column1: 606, column2: 'Lemon', column3: 'Larry eats lemons', composite: 'Comp F' },
-    { id: '7', column1: 707, column2: 'Strawberry', column3: 'Sally eats strawberries',
-      composite: 'Comp G' }
+
+  public data = [
+    { id: '1', name: 'Niels Bohr', email: 'niels.bohr@foo.bar', amount: 170.75, status: 'Paid' },
+    { id: '2', name: 'Ada Lovelace', email: 'ada.lovelace@foo.bar', amount: 114.13, status: 'Paid' },
+    { id: '3', name: 'Marie Curie', email: 'marie.curie@foo.bar', amount: 111, status: 'Past due' },
+    { id: '4', name: 'Barbara McClintock', email: 'barbara.mcclintock@foo.bar', amount: 84.63, status: 'Paid' },
+    { id: '5', name: 'Michael Faraday', email: 'michael.faraday@foo.bar', amount: 83.97, status: 'Paid' },
+    { id: '6', name: 'Enrico Fermi', email: 'enrico.fermi@foo.bar', amount: 74.5, status: 'Past due' },
+    { id: '7', name: 'Mae C. Jemison', email: 'mae.jemison@foo.bar', amount: 70.86, status: 'Paid' }
   ];
 
+  public dataForMultiselect = this.data.slice(0);
+
   public asyncHeading = new BehaviorSubject<string>('');
+
+  public selectedRows: string;
+
+  public gridController = new Subject<SkyGridMessage>();
 
   public ngOnInit() {
     // Simulate async request:
     setTimeout(() => {
-      this.asyncHeading.next('Column1');
+      this.asyncHeading.next('Amount');
     }, 1000);
   }
 
-  public sortChanged(activeSort: ListSortFieldSelectorModel) {
+  public onSortChangeForGrid(activeSort: ListSortFieldSelectorModel) {
+    this.data = this.sortGridData(activeSort, this.data);
+  }
+
+  public onSortChangeForMultiselectGrid(activeSort: ListSortFieldSelectorModel) {
+    this.dataForMultiselect = this.sortGridData(activeSort, this.dataForMultiselect);
+  }
+
+  public onMultiselectSelectionChange(value: SkyGridSelectedRowsModelChange) {
+    this.selectedRows = value.selectedRowIds.toString();
+  }
+
+  private sortGridData(activeSort: ListSortFieldSelectorModel, data: any[]) {
     const sortField = activeSort.fieldSelector;
     const descending = activeSort.descending;
 
-    this.items = this.items.sort((a: any, b: any) => {
+    return data.sort((a: any, b: any) => {
       let value1 = a[sortField];
       let value2 = b[sortField];
 
