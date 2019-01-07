@@ -39,6 +39,8 @@ export class SkyTimepickerDemoComponent implements OnInit {
 
   public clearSelectedTimes() {
     this.selectedTime1 = undefined;
+    this.selectedTime2 = undefined;
+    this.selectedTime3 = undefined;
     this.reactiveTime.setValue(undefined);
   }
 }

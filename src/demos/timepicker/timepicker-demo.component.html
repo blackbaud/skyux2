@@ -1,6 +1,8 @@
-<h3>
+<h2
+  class="sky-section-heading"
+>
   12-hour timepicker
-</h3>
+</h2>
 
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample1>
@@ -26,9 +28,11 @@
   Selected time is {{selectedTime1?.local}}
 </p>
 
-<h3>
+<h2
+  class="sky-section-heading"
+>
   24-hour timepicker.
-</h3>
+</h2>
 
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample2>
@@ -54,9 +58,11 @@
   Selected time is {{selectedTime2?.hour}}:{{selectedTime2?.minute}}
 </p>
 
-<h3>
+<h2
+  class="sky-section-heading"
+>
   Custom timepicker
-</h3>
+</h2>
 
 <div style="max-width: 400px">
   <sky-timepicker #timePickerExample3>
@@ -82,9 +88,11 @@
   Selected time is {{selectedTime3?.local}}
 </p>
 
-<h3>
+<h2
+  class="sky-section-heading"
+>
   Reactive form timepicker
-</h3>
+</h2>
 
 <form
   novalidate
@@ -92,13 +100,13 @@
   [formGroup]="reactiveForm"
 >
   <sky-timepicker
-    #timePickerExample4
+    #reactiveTimePicker
   >
     <input
       formControlName="time"
       type="text"
       [timeFormat]="format12"
-      [skyTimepickerInput]="timePickerExample4"
+      [skyTimepickerInput]="reactiveTimePicker"
     />
   </sky-timepicker>
 
