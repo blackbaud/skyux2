@@ -2,11 +2,13 @@
 import {
   AfterViewChecked,
   Component,
-  ElementRef,
   ViewChild
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
+import {
+  Observable
+} from 'rxjs/Observable';
+
 import 'rxjs/add/observable/of';
 
 import {
@@ -18,9 +20,21 @@ import {
   SkyFlyoutService
 } from '../../core';
 
-import { FlyoutDemoContext } from './flyout-demo-context';
-import { SkyFlyoutDemoInternalComponent } from './flyout-demo-internal.component';
-import { ListItemModel, SkyListViewGridComponent } from '../../../dist/core';
+import {
+  FlyoutDemoContext
+} from './flyout-demo-context';
+
+import {
+  SkyFlyoutDemoInternalComponent
+} from './flyout-demo-internal.component';
+
+import {
+  SkyListViewGridComponent
+} from '../../modules/list-view-grid';
+
+import {
+  ListItemModel
+} from '../../modules/list/state';
 
 @Component({
   selector: 'sky-flyout-demo',
@@ -37,7 +51,7 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
   public flyout: SkyFlyoutInstance<SkyFlyoutDemoInternalComponent>;
 
   // FLYOUT ITERATOR STUFF
-  public highlightedRowId: string;
+  public rowHighlightedId: string;
   @ViewChild(SkyListViewGridComponent)
   public listViewGridComponent: SkyListViewGridComponent;
   private listState: ListItemModel[];
@@ -142,34 +156,34 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
   }
 
   private initIterators(record: any, flyout: SkyFlyoutInstance<any>) {
-    this.highlightedRowId = record.id;
+    this.rowHighlightedId = record.id;
 
     // Remove highlights when flyout is closed.
     flyout.closed
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        this.highlightedRowId = undefined;
+        this.rowHighlightedId = undefined;
     });
 
     flyout.iteratorPreviousButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let previous = this.stepToItemInArray(this.listState, this.highlightedRowId, -1);
+        let previous = this.stepToItemInArray(this.listState, this.rowHighlightedId, -1);
         this.openRecord(previous.data);
     });
 
     flyout.iteratorNextButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let next = this.stepToItemInArray(this.listState, this.highlightedRowId, 1);
+        let next = this.stepToItemInArray(this.listState, this.rowHighlightedId, 1);
         this.openRecord(next.data);
     });
 
-    if (this.isFirstElementInArray(this.highlightedRowId, this.listState)) {
+    if (this.isFirstElementInArray(this.rowHighlightedId, this.listState)) {
       flyout.iteratorPreviousButtonDisabled = true;
     }
 
-    if (this.isLastElementInArray(this.highlightedRowId, this.listState)) {
+    if (this.isLastElementInArray(this.rowHighlightedId, this.listState)) {
       flyout.iteratorNextButtonDisabled = true;
     }
   }
