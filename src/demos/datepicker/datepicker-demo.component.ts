@@ -1,15 +1,41 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit
+} from '@angular/core';
+
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 
 @Component({
   selector: 'sky-datepicker-demo',
   templateUrl: './datepicker-demo.component.html'
 })
-export class SkyDatepickerDemoComponent {
+export class SkyDatepickerDemoComponent implements OnInit {
   public minDate: Date;
   public maxDate: Date;
-  public selectedDate: Date;
+  public selectedDate = '4/4/2017';
+  public reactiveForm: FormGroup;
 
-  public clearSelectedDate(): void {
+  public get reactiveDate(): FormControl {
+    return this.reactiveForm.get('selectedDate') as FormControl;
+  }
+
+  constructor(
+    private formBuilder: FormBuilder
+  ) { }
+
+  public ngOnInit(): void {
+    this.reactiveForm = this.formBuilder.group({
+      selectedDate: new FormControl('4/4/2017', Validators.required)
+    });
+  }
+
+  public clearSelectedDates(): void {
     this.selectedDate = undefined;
+    this.reactiveDate.setValue(undefined);
   }
 }
