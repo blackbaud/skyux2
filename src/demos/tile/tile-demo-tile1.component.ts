@@ -9,4 +9,8 @@ export class SkyTileDemoTile1Component {
   public tileSettingsClick() {
     alert('tile settings clicked');
   }
+
+  public tileHelpClick() {
+    alert('tile help clicked');
+  }
 }

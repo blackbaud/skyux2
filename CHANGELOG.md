@@ -1,3 +1,7 @@
+# 2.37.0 (2019-01-04)
+
+- Added `rowHighlightedId` input to grid component. [blackbaud/skyux-grids#28](https://github.com/blackbaud/skyux-grids/pull/28)
+
 # 2.36.0 (2018-12-21)
 
 - Added iterator buttons to the flyout component. [blackbaud/skyux-flyout#10](https://github.com/blackbaud/skyux-flyout/pull/10) (Thanks @Theaggarwal)
