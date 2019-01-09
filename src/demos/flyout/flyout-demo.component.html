@@ -1,69 +1,85 @@
 <h2
   class="sky-section-heading"
 >
-  Simple Flyout Examples
+  Basic Flyout Usage
 </h2>
 
 <p>
   <button
-    type="button"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openSimpleFlyout()"
   >
     Open flyout
   </button>
 
   <button
-    type="button"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openFlyoutWithCutsomWidth()"
   >
-    Open flyout with custom width
+    Custom width
   </button>
 </p>
 
+<h2
+  class="sky-section-heading"
+>
+  Flyout header customization
+</h2>
+
 <p>
   <button
-    type="button"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openFlyoutWithUrlPermalink()"
   >
-    Open flyout with a URL permalink
+    URL permalink
   </button>
 
   <button
-    type="button"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openFlyoutWithRoutePermalink()"
   >
-    Open flyout with an Angular route permalink
+    Route permalink
   </button>
 
   <button
-    type="button"
     class="sky-btn sky-btn-default"
+    type="button"
     (click)="openFlyoutWithPrimaryAction()"
   >
-    Open flyout with a primary action
+    Primary action
+  </button>
+
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openFlyoutWithIterators()"
+  >
+    Iterators
   </button>
 </p>
 
+<h2
+  class="sky-section-heading"
+>
+    Programmatically close and remove flyout
+</h2>
+
 <p>
   <button
-    type="button"
     class="sky-btn sky-btn-default"
-    (click)="openFlyoutWithIterators()"
-  >
-    Open flyout with iterators
-  </button>
-
-  <button *ngIf="flyout"
     type="button"
-    class="sky-btn sky-btn-default"
+    [disabled]="!flyout"
     (click)="closeAndRemoveFlyout()"
   >
-    <sky-icon icon="trash"></sky-icon>
-    Programmatically close and remove flyout
+    <sky-icon
+      icon="trash"
+    >
+    </sky-icon>
+    Remove
   </button>
 </p>
 
@@ -77,14 +93,6 @@
   [data]="users"
   [defaultView]="grid"
 >
-
-<sky-list-toolbar>
-  <sky-list-column-selector-action
-    [gridView]="grid"
-  >
-  </sky-list-column-selector-action>
-</sky-list-toolbar>
-
   <sky-list-view-grid
     [rowHighlightedId]="rowHighlightedId"
     #grid
@@ -93,19 +101,23 @@
       field="name"
       heading="Name"
       [template]="customTemplate"
-    ></sky-grid-column>
+    >
+    </sky-grid-column>
     <sky-grid-column
       field="constituentCode"
       heading="Constituent Code"
-    ></sky-grid-column>
+    >
+    </sky-grid-column>
     <sky-grid-column
       field="latestGift"
       heading="Latest Gift"
-    ></sky-grid-column>
+    >
+    </sky-grid-column>
     <sky-grid-column
       field="status"
       heading="Status"
-    ></sky-grid-column>
+    >
+    </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
 
@@ -114,8 +126,8 @@
   #customTemplate
 >
   <button
-    type="button"
     class="sky-btn sky-btn-link"
+    type="button"
     (click)="onNameClick(row)"
   >
     {{ row.name }}

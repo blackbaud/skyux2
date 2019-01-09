@@ -74,18 +74,18 @@ export class SkyFlyoutDemoComponent {
     private flyoutService: SkyFlyoutService
   ) { }
 
-  public onNameClick(record: FlyoutDemoContext) {
+  public onNameClick(record: FlyoutDemoContext): void {
     this.openRecord(record);
   }
 
-  public closeAndRemoveFlyout() {
+  public closeAndRemoveFlyout(): void {
     if (this.flyout && this.flyout.isOpen) {
       this.flyoutService.close();
     }
     this.flyout = undefined;
   }
 
-  public openSimpleFlyout() {
+  public openSimpleFlyout(): void {
     this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent);
 
     this.flyout.closed.subscribe(() => {
@@ -93,8 +93,8 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public openFlyoutWithCutsomWidth() {
-    let flyoutConfig: SkyFlyoutConfig = {
+  public openFlyoutWithCutsomWidth(): void {
+    const flyoutConfig: SkyFlyoutConfig = {
       defaultWidth: 350,
       maxWidth: 500,
       minWidth: 200
@@ -106,8 +106,8 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public openFlyoutWithUrlPermalink() {
-    let flyoutConfig: SkyFlyoutConfig = {
+  public openFlyoutWithUrlPermalink(): void {
+    const flyoutConfig: SkyFlyoutConfig = {
       permalink: {
         label: `Visit blackbaud.com`,
         url: 'http://www.blackbaud.com'
@@ -120,8 +120,8 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public openFlyoutWithRoutePermalink() {
-    let flyoutConfig: SkyFlyoutConfig = {
+  public openFlyoutWithRoutePermalink(): void {
+    const flyoutConfig: SkyFlyoutConfig = {
       permalink: {
         label: 'View details',
         route: {
@@ -142,8 +142,8 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public openFlyoutWithPrimaryAction() {
-    let flyoutConfig: SkyFlyoutConfig = {
+  public openFlyoutWithPrimaryAction(): void {
+    const flyoutConfig: SkyFlyoutConfig = {
       primaryAction: {
         label: 'Invoke primary action',
         callback: () => {
@@ -159,8 +159,8 @@ export class SkyFlyoutDemoComponent {
     });
   }
 
-  public openFlyoutWithIterators() {
-    let flyoutConfig: SkyFlyoutConfig = {
+  public openFlyoutWithIterators(): void {
+    const flyoutConfig: SkyFlyoutConfig = {
       showIterator: true
     };
     this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
@@ -183,7 +183,7 @@ export class SkyFlyoutDemoComponent {
     // Prevent highlight from being prematurely removed.
     this.openFlyoutStream.next(true);
 
-    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
+    const flyoutConfig: SkyFlyoutConfig = {
       providers: [{
         provide: FlyoutDemoContext,
         useValue: record
@@ -206,7 +206,9 @@ export class SkyFlyoutDemoComponent {
         }
       },
       showIterator: true
-    });
+    };
+
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalComponent, flyoutConfig);
 
     this.flyout.closed.subscribe(() => {
       this.flyout = undefined;
@@ -237,14 +239,14 @@ export class SkyFlyoutDemoComponent {
     flyout.iteratorPreviousButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let previous = this.stepToItemInArray(this.listState, this.rowHighlightedId, -1);
+        const previous = this.stepToItemInArray(this.listState, this.rowHighlightedId, -1);
         this.openRecord(previous.data);
     });
 
     flyout.iteratorNextButtonClick
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
-        let next = this.stepToItemInArray(this.listState, this.rowHighlightedId, 1);
+        const next = this.stepToItemInArray(this.listState, this.rowHighlightedId, 1);
         this.openRecord(next.data);
     });
 
@@ -261,7 +263,7 @@ export class SkyFlyoutDemoComponent {
   }
 
   private isFirstElementInArray(id: any, array: any[]) {
-    let element = array.find(x => x.id === id);
+    const element = array.find(x => x.id === id);
     if (array[0] === element) {
       return true;
     }
@@ -269,7 +271,7 @@ export class SkyFlyoutDemoComponent {
   }
 
   private isLastElementInArray(id: any, array: any[]) {
-    let element = array.find(x => x.id === id);
+    const element = array.find(x => x.id === id);
     if (array[array.length - 1] === element) {
       return true;
     }
