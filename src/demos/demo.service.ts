@@ -420,6 +420,11 @@ export class SkyDemoService {
           componentName: 'SkyFlyoutDemoInternalComponent'
         },
         {
+          name: 'flyout-demo-internal-simple.component.ts',
+          fileContents: require('!!raw-loader!./flyout/flyout-demo-internal-simple.component.ts'),
+          componentName: 'SkyFlyoutDemoInternalSimpleComponent'
+        },
+        {
           name: 'flyout-demo-context.ts',
           fileContents: require('!!raw-loader!./flyout/flyout-demo-context.ts')
         }

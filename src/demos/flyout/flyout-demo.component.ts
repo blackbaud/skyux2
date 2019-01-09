@@ -1,6 +1,5 @@
 
 import {
-  AfterViewChecked,
   Component,
   ViewChild
 } from '@angular/core';
@@ -36,19 +35,31 @@ import {
   ListItemModel
 } from '../../modules/list/state';
 
+import {
+  SkyFlyoutDemoInternalSimpleComponent
+} from './flyout-demo-internal-simple.component';
+
+import {
+  SkyFlyoutConfig
+} from '../../modules/flyout';
+
 @Component({
   selector: 'sky-flyout-demo',
   templateUrl: './flyout-demo.component.html'
 })
-export class SkyFlyoutDemoComponent implements AfterViewChecked {
+export class SkyFlyoutDemoComponent {
+
   public users = Observable.of([
-    { id: '1', name: 'Sally' },
-    { id: '2', name: 'John' },
-    { id: '3', name: 'David' },
-    { id: '4', name: 'Janet' }
+    { id: '1', name: 'Troy Barnes', constituentCode: 'Alumnus', latestGift: 175, status: 'Paid' },
+    { id: '2', name: 'Britta Perry', constituentCode: 'Friend', latestGift: 5, status: 'Past due' },
+    { id: '3', name: 'Pierce Hawthorne', constituentCode: 'Board Member', latestGift: 1500, status: 'Paid' },
+    { id: '4', name: 'Annie Edison', constituentCode: 'Alumnus', latestGift: 100, status: 'Paid' },
+    { id: '5', name: 'Shirley Bennett', constituentCode: 'Board Member', latestGift: 250, status: 'Paid' },
+    { id: '6', name: 'Jeff Winger', constituentCode: 'Friend', latestGift: 250, status: 'Paid' },
+    { id: '7', name: 'Abed Nadir', constituentCode: 'Major Donor', latestGift: 100000, status: 'Paid' }
   ]);
 
-  public flyout: SkyFlyoutInstance<SkyFlyoutDemoInternalComponent>;
+  public flyout: SkyFlyoutInstance<any>;
 
   // FLYOUT ITERATOR STUFF
   public rowHighlightedId: string;
@@ -61,14 +72,111 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
     private flyoutService: SkyFlyoutService
   ) { }
 
-  public ngAfterViewChecked(): void {
-    // TODO: unsubscribe on destroy
-    this.listViewGridComponent.items.subscribe(s => {
-      this.listState = s;
+  public onNameClick(record: FlyoutDemoContext) {
+    this.openRecord(record);
+  }
+
+  public closeAndRemoveFlyout() {
+    if (this.flyout && this.flyout.isOpen) {
+      this.flyoutService.close();
+    }
+    this.flyout = undefined;
+  }
+
+  public openSimpleFlyout() {
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent);
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
     });
   }
 
-  public openRecord(record: FlyoutDemoContext) {
+  public openFlyoutWithCutsomWidth() {
+    let flyoutConfig: SkyFlyoutConfig = {
+      defaultWidth: 350,
+      maxWidth: 500,
+      minWidth: 200
+    };
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
+    });
+  }
+
+  public openFlyoutWithUrlPermalink() {
+    let flyoutConfig: SkyFlyoutConfig = {
+      permalink: {
+        label: `Visit blackbaud.com`,
+        url: 'http://www.blackbaud.com'
+      }
+    };
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
+    });
+  }
+
+  public openFlyoutWithRoutePermalink() {
+    let flyoutConfig: SkyFlyoutConfig = {
+      permalink: {
+        label: 'View details',
+        route: {
+          commands: ['/'],
+          extras: {
+            fragment: 'helloWorld',
+            queryParams: {
+              myParam: 'true'
+            }
+          }
+        }
+      }
+    };
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
+    });
+  }
+
+  public openFlyoutWithPrimaryAction() {
+    let flyoutConfig: SkyFlyoutConfig = {
+      primaryAction: {
+        label: 'Invoke primary action',
+        callback: () => {
+          alert('Primary action invoked');
+        },
+        closeAfterInvoking: true
+      }
+    };
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
+    });
+  }
+
+  public openFlyoutWithIterators() {
+    let flyoutConfig: SkyFlyoutConfig = {
+      showIterator: true
+    };
+    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
+
+    this.flyout.iteratorNextButtonClick.subscribe(() => {
+      alert('Next iterator button clicked!');
+    });
+
+    this.flyout.iteratorPreviousButtonClick.subscribe(() => {
+      alert('Prvious iterator button clicked!');
+    });
+
+    this.flyout.closed.subscribe(() => {
+      this.flyout = undefined;
+    });
+  }
+
+  private openRecord(record: FlyoutDemoContext) {
 
     // Prevent highlight from being prematurely removed.
     this.openFlyoutStream.next(true);
@@ -95,7 +203,7 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
           }
         }
       },
-      showIterator: true // TODO: create different demo to showcase this separately.
+      showIterator: true
     });
 
     this.flyout.closed.subscribe(() => {
@@ -103,56 +211,6 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
     });
 
     this.initIterators(record, this.flyout);
-  }
-
-  public closeFlyout() {
-    this.flyout.close();
-  }
-
-  public removeFlyout() {
-    this.flyoutService.close();
-    this.flyout = undefined;
-  }
-
-  public isRecordOpen(record: FlyoutDemoContext): boolean {
-    return (
-      this.flyout &&
-      this.flyout.componentInstance.context.id === record.id
-    );
-  }
-
-  public openFlyoutWithUrlPermalink() {
-    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
-      providers: [{
-        provide: FlyoutDemoContext,
-        useValue: {
-          id: '1',
-          name: 'Jenkins'
-        }
-      }],
-      permalink: {
-        url: 'https://blackbaud.com'
-      }
-    });
-  }
-
-  public openFlyoutWithPrimaryAction() {
-    this.flyoutService.open(SkyFlyoutDemoInternalComponent, {
-      providers: [{
-        provide: FlyoutDemoContext,
-        useValue: {
-          id: '2',
-          name: 'Partridge'
-        }
-      }],
-      primaryAction: {
-        label: 'Invoke primary action',
-        callback: () => {
-          alert('Primary action invoked');
-        },
-        closeAfterInvoking: true
-      }
-    });
   }
 
   private initIterators(record: any, flyout: SkyFlyoutInstance<any>) {
@@ -163,6 +221,15 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
       .takeUntil(this.openFlyoutStream)
       .subscribe(() => {
         this.rowHighlightedId = undefined;
+    });
+
+    this.listViewGridComponent.items
+      .takeUntil(this.openFlyoutStream)
+      .subscribe(s => {
+        this.listState = s;
+
+        flyout.iteratorPreviousButtonDisabled = this.isFirstElementInArray(this.rowHighlightedId, this.listState);
+        flyout.iteratorNextButtonDisabled = this.isLastElementInArray(this.rowHighlightedId, this.listState);
     });
 
     flyout.iteratorPreviousButtonClick
@@ -179,13 +246,8 @@ export class SkyFlyoutDemoComponent implements AfterViewChecked {
         this.openRecord(next.data);
     });
 
-    if (this.isFirstElementInArray(this.rowHighlightedId, this.listState)) {
-      flyout.iteratorPreviousButtonDisabled = true;
-    }
-
-    if (this.isLastElementInArray(this.rowHighlightedId, this.listState)) {
-      flyout.iteratorNextButtonDisabled = true;
-    }
+    flyout.iteratorPreviousButtonDisabled = this.isFirstElementInArray(this.rowHighlightedId, this.listState);
+    flyout.iteratorNextButtonDisabled = this.isLastElementInArray(this.rowHighlightedId, this.listState);
   }
 
   private stepToItemInArray(array: Array<any>, currentId: string, step: number) {
