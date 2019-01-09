@@ -61,11 +61,13 @@ export class SkyFlyoutDemoComponent {
 
   public flyout: SkyFlyoutInstance<any>;
 
-  // FLYOUT ITERATOR STUFF
   public rowHighlightedId: string;
+
   @ViewChild(SkyListViewGridComponent)
   public listViewGridComponent: SkyListViewGridComponent;
+
   private listState: ListItemModel[];
+
   private openFlyoutStream = new Subject<boolean>();
 
   constructor(
