@@ -1,3 +1,10 @@
+# 2.38.0 (2019-01-09)
+
+- Added style for invalid `textarea` elements. [blackbaud/skyux-theme#46](https://github.com/blackbaud/skyux-theme/pull/46)
+- Fixed card component to prevent infinite loops when users select or deselect cards. [blackbaud/skyux-layout#12](https://github.com/blackbaud/skyux-layout/pull/12)
+- Updated datepicker and timepicker demos to include reactive forms. [#2204](https://github.com/blackbaud/skyux2/pull/2204)
+- Updated primary text and anchor colors to pass a11y color contrast rule. [blackbaud/skyux-design-tokens#24](https://github.com/blackbaud/skyux-design-tokens/pull/24)
+
 # 2.37.0 (2019-01-04)
 
 - Added `rowHighlightedId` input to grid component. [blackbaud/skyux-grids#28](https://github.com/blackbaud/skyux-grids/pull/28)
