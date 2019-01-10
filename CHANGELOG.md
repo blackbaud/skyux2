@@ -1,6 +1,6 @@
 # 2.38.0 (2019-01-09)
 
-- Added style for invalid `textarea` elements. [blackbaud/skyux-theme#46](https://github.com/blackbaud/skyux-theme/pull/46)
+- Added style for invalid `textarea` elements. [blackbaud/skyux-theme#46](https://github.com/blackbaud/skyux-theme/pull/46) (Thanks @Blackbaud-JeffDye)
 - Updated datepicker and timepicker demos to include reactive forms. [#2204](https://github.com/blackbaud/skyux2/pull/2204)
 - Updated primary text and anchor colors to pass accessibility color contrast rule. [blackbaud/skyux-design-tokens#24](https://github.com/blackbaud/skyux-design-tokens/pull/24)
 - Fixed card component to prevent infinite loops when users select or deselect cards. [blackbaud/skyux-layout#12](https://github.com/blackbaud/skyux-layout/pull/12)
