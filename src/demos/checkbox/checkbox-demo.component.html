@@ -24,6 +24,7 @@
     [disabled]="item.disabled"
     [icon]="item.icon"
     [checkboxType]="item.checkboxType"
+    [label]="item.label"
     [(ngModel)]="item.checked">
   </sky-checkbox>
 </div>
@@ -37,6 +38,7 @@
   <sky-checkbox
     *ngFor="let item of iconCheckboxGroup"
     [icon]="item.icon"
+    [label]="item.label"
     [(ngModel)]="item.checked">
   </sky-checkbox>
 </div>
