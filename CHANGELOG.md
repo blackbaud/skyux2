@@ -1,3 +1,10 @@
+# 2.38.0 (2019-01-09)
+
+- Added style for invalid `textarea` elements. [blackbaud/skyux-theme#46](https://github.com/blackbaud/skyux-theme/pull/46) (Thanks @Blackbaud-JeffDye)
+- Updated datepicker and timepicker demos to include reactive forms. [#2204](https://github.com/blackbaud/skyux2/pull/2204)
+- Updated primary text and anchor colors to pass accessibility color contrast rule. [blackbaud/skyux-design-tokens#24](https://github.com/blackbaud/skyux-design-tokens/pull/24)
+- Fixed card component to prevent infinite loops when users select or deselect cards. [blackbaud/skyux-layout#12](https://github.com/blackbaud/skyux-layout/pull/12)
+
 # 2.37.0 (2019-01-04)
 
 - Added `rowHighlightedId` input to grid component. [blackbaud/skyux-grids#28](https://github.com/blackbaud/skyux-grids/pull/28)
@@ -5,12 +12,12 @@
 # 2.36.0 (2018-12-21)
 
 - Added iterator buttons to the flyout component. [blackbaud/skyux-flyout#10](https://github.com/blackbaud/skyux-flyout/pull/10) (Thanks @Theaggarwal)
-- Fixed datepicker and timepicker components to properly transform provided values on initial load in reactive forms. [blackbaud/skyux-datetime#7](https://github.com/blackbaud/skyux-datetime/issues/7)
-- Fixed grid component to only listen to `mousemove` and `mouseup` events while resizing columns. [blackbaud/skyux-grids#25](https://github.com/blackbaud/skyux-grids/pull/25)
-- Fixed toast service to remove toaster component if all toast component instances have been closed. [blackbaud/skyux-toast#9](https://github.com/blackbaud/skyux-toast/pull/9)
 - Updated flyout service to utilize `SkyDynamicComponentService`. [blackbaud/skyux-flyout#9](https://github.com/blackbaud/skyux-flyout/pull/9)
 - Updated modal dependencies to ensure proper modal host component removal [blackbaud/skyux-modals#20](https://github.com/blackbaud/skyux-modals/pull/20)
 - Updated toast service to utilize `SkyDynamicComponentService` [blackbaud/skyux-toast#6](https://github.com/blackbaud/skyux-toast/pull/6)
+- Fixed datepicker and timepicker components to properly transform provided values on initial load in reactive forms. [blackbaud/skyux-datetime#7](https://github.com/blackbaud/skyux-datetime/issues/7)
+- Fixed grid component to only listen to `mousemove` and `mouseup` events while resizing columns. [blackbaud/skyux-grids#25](https://github.com/blackbaud/skyux-grids/pull/25)
+- Fixed toast service to remove toaster component if all toast component instances have been closed. [blackbaud/skyux-toast#9](https://github.com/blackbaud/skyux-toast/pull/9)
 
 # 2.35.0 (2018-12-19)
 
@@ -128,7 +135,7 @@
 - Fixed colorpicker bug preventing colopicker to not open when clicked in IE11 [#2071](https://github.com/blackbaud/skyux2/pull/2071)
 - Fixed visual tests to read i18n resource files. [#2099](https://github.com/blackbaud/skyux2/pull/2099)
 - Fixed modal to initially focus `autofocus` attribute if available. [#3](https://github.com/blackbaud/skyux-modals/pull/3)
- - Fixed text highlight regular expression to properly escape special characters. [#6](https://github.com/blackbaud/skyux-indicators/pull/6)
+- Fixed text highlight regular expression to properly escape special characters. [#6](https://github.com/blackbaud/skyux-indicators/pull/6)
 
 # 2.26.0 (2018-09-21)
 
@@ -491,9 +498,9 @@
   - Updated small card width to 225px and large card with to 350px to account for increased font sizes.
   - Updated modal to automatically put focus in dialog when opening. [#860](https://github.com/blackbaud/skyux2/issues/860), [#771](https://github.com/blackbaud/skyux2/issues/771), [#478](https://github.com/blackbaud/skyux2/issues/478)
   - Updated modal to keep focus in dialog until it is closed. [#860](https://github.com/blackbaud/skyux2/issues/860), [#771](https://github.com/blackbaud/skyux2/issues/771), [#635](https://github.com/blackbaud/skyux2/issues/635)
-  - Fixed typo in modal testing documentation. [#829](https://github.com/blackbaud/skyux2/issues/829)
   - Updated modal to close when the escape key is pressed. [#772](https://github.com/blackbaud/skyux2/issues/772)
   - Updated modal to return focus to the element that opened the modal [#771](https://github.com/blackbaud/skyux2/issues/771)
+  - Fixed typo in modal testing documentation. [#829](https://github.com/blackbaud/skyux2/issues/829)
 
 # 2.0.0-rc.7 (2017-07-20)
 
@@ -587,17 +594,17 @@
 # 2.0.0-beta.27 (2017-05-16)
 
   - Added proper nesting for `getData` in grids. (Thanks @Blackbaud-TrevorBurch)
-  - Updated styles for full page modal header. [#548](https://github.com/blackbaud/skyux2/issues/548)
-  - Ensured component wait mask appears behind modal. [#637](https://github.com/blackbaud/skyux2/issues/637)
-  - Fixed padding for tab close button. [#542](https://github.com/blackbaud/skyux2/issues/542)
-  - Fixed styles for file drop when links are not allowed. [#645](https://github.com/blackbaud/skyux2/issues/645)
-  - Added space between modal footer buttons and added cancel button to wizard demo. [#541](https://github.com/blackbaud/skyux2/issues/541)
-  - Updated styles for placeholder text for inputs. [#538](https://github.com/blackbaud/skyux2/issues/538)
-  - Fixed bug around search and paging for lists. [#696](https://github.com/blackbaud/skyux2/issues/696)
-  - Updated disabled and hover styles for paging. [#539](https://github.com/blackbaud/skyux2/issues/539)
   - Added documentation around editing skyuxconfig. [#700](https://github.com/blackbaud/skyux2/issues/700)
+  - Added space between modal footer buttons and added cancel button to wizard demo. [#541](https://github.com/blackbaud/skyux2/issues/541)
+  - Ensured component wait mask appears behind modal. [#637](https://github.com/blackbaud/skyux2/issues/637)
+  - Updated styles for full page modal header. [#548](https://github.com/blackbaud/skyux2/issues/548)
+  - Updated styles for placeholder text for inputs. [#538](https://github.com/blackbaud/skyux2/issues/538)
+  - Updated disabled and hover styles for paging. [#539](https://github.com/blackbaud/skyux2/issues/539)
   - Updated border and striped background for grids. [#536](https://github.com/blackbaud/skyux2/issues/536)
   - Updated text color for body. [#533](https://github.com/blackbaud/skyux2/issues/533)
+  - Fixed bug around search and paging for lists. [#696](https://github.com/blackbaud/skyux2/issues/696)
+  - Fixed styles for file drop when links are not allowed. [#645](https://github.com/blackbaud/skyux2/issues/645)
+  - Fixed padding for tab close button. [#542](https://github.com/blackbaud/skyux2/issues/542)
 
 # 2.0.0-beta.26 (2017-05-11)
 
@@ -618,9 +625,9 @@
 # 2.0.0-beta.23 (2017-05-05)
 
   - Added accepted attribute for file input in file drop component. [#594](https://github.com/blackbaud/skyux2/issues/594)
-  - Made file drop component reject empty file types when `acceptedTypes` attribute is specified. [#592](https://github.com/blackbaud/skyux2/issues/592)
-  - Updated font size variables to match font sizes in SKY UX 1. [#537](https://github.com/blackbaud/skyux2/issues/537)
   - Added the datepicker module. [#141](https://github.com/blackbaud/skyux2/issues/141)
+  - Updated file drop component to reject empty file types when `acceptedTypes` attribute is specified. [#592](https://github.com/blackbaud/skyux2/issues/592)
+  - Updated font size variables to match font sizes in SKY UX 1. [#537](https://github.com/blackbaud/skyux2/issues/537)
 
 # 2.0.0-beta.22 (2017-04-29)
 
@@ -661,11 +668,11 @@
 
 # 2.0.0-beta.16 (2017-03-31)
 
+  - Added correct cursor pointer styles for checkbox and radio inputs. [#502](https://github.com/blackbaud/skyux2/issues/502)
   - Updated dropdown styles to be consistent with sky-btn-default on hover. [#534](https://github.com/blackbaud/skyux2/issues/534)
   - Updated modal header padding to account for padding of close button. [#512](https://github.com/blackbaud/skyux2/issues/512)
   - Updated margin-left of sky-btn-link when it is the first child in the modal footer. [#512](https://github.com/blackbaud/skyux2/issues/512)
   - Updated the padding and border of modal header and footer to not display when those components are not included. [#512](https://github.com/blackbaud/skyux2/issues/512)
-  - Added correct cursor pointer styles for checkbox and radio inputs. [#502](https://github.com/blackbaud/skyux2/issues/502)
 
 # 2.0.0-beta.15 (2017-03-29)
 
@@ -680,8 +687,8 @@
   - Added additional documentation around configuration options.
   - Added additional documentation around items in the template.
   - Added white background-color to dropdown buttons. (Thanks @Blackbaud-TrevorBurch) [#486](https://github.com/blackbaud/skyux2/issues/486)
-  - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman)
   - Updated the default padding for modals. [#483](https://github.com/blackbaud/skyux2/issues/483)
+  - Fixed documentation examples to use `indexOf` instead of a loop. (Thanks @Blackbaud-ScottFreeman)
   - Removed border for hover state of `btn-link-inline` class. [#488](https://github.com/blackbaud/skyux2/issues/488)
 
 # 2.0.0-beta.13 (2017-03-13)
@@ -737,12 +744,12 @@
 
 # 2.0.0-beta.7 (2017-02-07)
 
-  - Fixed bug around navbar item hit target. [#329](https://github.com/blackbaud/skyux2/issues/329)
   - Added styles for tile content section border. [#321](https://github.com/blackbaud/skyux2/issues/321)
   - Added correct overflow styles to card header area. [#323](https://github.com/blackbaud/skyux2/issues/323)
-  - Updated the padding for tab buttons to use an even amount of padding. [#336](https://github.com/blackbaud/skyux2/issues/336)
   - Added the list toolbar with search functionality. [#312](https://github.com/blackbaud/skyux2/issues/312)
   - Added the `isCollapsible` option to search component. [#337](https://github.com/blackbaud/skyux2/issues/337)
+  - Updated the padding for tab buttons to use an even amount of padding. [#336](https://github.com/blackbaud/skyux2/issues/336)
+  - Fixed bug around navbar item hit target. [#329](https://github.com/blackbaud/skyux2/issues/329)
 
 # 2.0.0-beta.6 (2017-02-03)
 
@@ -752,19 +759,19 @@
 
   - Added list grid view for displaying a grid in a SKY list. [#171](https://github.com/blackbaud/skyux2/issues/171)
   - Added action button component to allow users to pick an action during a branching point in the system. [#319](https://github.com/blackbaud/skyux2/issues/319)
-  - Fixed bug where tiles were not properly rendered if hosted on a tile dashboard whose parent's change detection strategy was `OnPush`. [#324](https://github.com/blackbaud/skyux2/issues/324)
   - Added standalone toolbar component. [#326](https://github.com/blackbaud/skyux2/issues/326)
   - Updated Angular to 2.4.5 and updated various other NPM dependencies [#327](https://github.com/blackbaud/skyux2/issues/327)
+  - Fixed bug where tiles were not properly rendered if hosted on a tile dashboard whose parent's change detection strategy was `OnPush`. [#324](https://github.com/blackbaud/skyux2/issues/324)
 
 
 # 2.0.0-beta.4 (2017-01-27)
 
+  - Added standalone grid component (thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). [#171](https://github.com/blackbaud/skyux2/issues/171)
   - Expose and document SkyMediaQueryService. [#288](https://github.com/blackbaud/skyux2/issues/288)
-  - Fix plunkers for modal and tile documentation. [#307](https://github.com/blackbaud/skyux2/issues/307)
   - Updated skyux paths in component documentation. [#310](https://github.com/blackbaud/skyux2/issues/310)
   - Updated tile documentation to include entryComponent information. [#309](https://github.com/blackbaud/skyux2/issues/309)
-  - Added standalone grid component (thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes). [#171](https://github.com/blackbaud/skyux2/issues/171)
   - Fixed modal margin issues in IE11. [#301](https://github.com/blackbaud/skyux2/issues/301)
+  - Fixed plunkers for modal and tile documentation. [#307](https://github.com/blackbaud/skyux2/issues/307)
 
 # 2.0.0-beta.3 (2017-01-17)
 
@@ -780,14 +787,14 @@
 
 # 2.0.0-beta.1 (2017-01-06)
 
-- Use skyux-builder for documentation instead of sky-pages-out-skyux2.
+- Added the `sky-` prefix for the button variant mixin.
+- Added a dependency on [moment](https://github.com/moment/moment).
+- Added a dependency on [microedge-rxstate](https://github.com/blackbaud/microedge-rxstate).
 - Created the paging component for pagingation. [#140](https://github.com/blackbaud/skyux2/issues/140)
 - Created the list-paging component for pagination in the context of a list (more list functionality coming soon, thanks @blackbaud-brandonstirnaman and @blackbaud-joshgerdes).
 - Created the definition list component. [#274](https://github.com/blackbaud/skyux2/issues/274)
 - Updated the media query service to work more like SKY UX 1 while using Observables. [#268](https://github.com/blackbaud/skyux2/issues/268)
-- Added the sky- prefix for the button variant mixin.
-- Added a dependency on [moment](https://github.com/moment/moment).
-- Added a dependency on [microedge-rxstate](https://github.com/blackbaud/microedge-rxstate).
+- Use skyux-builder for documentation instead of sky-pages-out-skyux2.
 
 # 2.0.0-beta.0 (2017-01-03)
 
@@ -846,8 +853,8 @@
 
 # 2.0.0-alpha.5 (2016-09-21)
 
-- Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 [#121](https://github.com/blackbaud/skyux2/issues/121)
 - Updated Angular 2 Dragula and other NPM packages [#123](https://github.com/blackbaud/skyux2/issues/123)
+- Fixed an issue where code editors could not resolve type references after upgrading to TypeScript 2.0 [#121](https://github.com/blackbaud/skyux2/issues/121)
 
 # 2.0.0-alpha.4 (2016-09-15)
 
@@ -861,14 +868,14 @@
 
 # 2.0.0-alpha.2 (2016-09-06)
 
-- Updated to Angular 2 RC 6
 - Added avatar component (sans upload capabilities)
+- Updated to Angular 2 RC 6
 - Fixed tile width issue when contents expanded past the width of the tile [#93](https://github.com/blackbaud/skyux2/issues/93)
 
 # 2.0.0-alpha.1 (2016-08-19)
 
-- Updated to Angular 2 RC 5
 - Added type definition files to dist
+- Updated to Angular 2 RC 5
 
 # 2.0.0-alpha.0 (2016-08-01)
 
