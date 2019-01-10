@@ -1,7 +1,7 @@
 <h2
   class="sky-section-heading"
 >
-  Basic flyout usage
+  Basic flyout
 </h2>
 
 <p>
@@ -10,7 +10,7 @@
     type="button"
     (click)="openSimpleFlyout()"
   >
-    Open flyout
+    Standard width
   </button>
 
   <button
@@ -25,7 +25,7 @@
 <h2
   class="sky-section-heading"
 >
-  Flyout header customization
+  Flyout with customized headers
 </h2>
 
 <p>
@@ -42,15 +42,7 @@
     type="button"
     (click)="openFlyoutWithRoutePermalink()"
   >
-    Route permalink
-  </button>
-
-  <button
-    class="sky-btn sky-btn-default"
-    type="button"
-    (click)="openFlyoutWithPrimaryAction()"
-  >
-    Primary action
+    Angular routing permalink
   </button>
 
   <button
@@ -65,7 +57,7 @@
 <h2
   class="sky-section-heading"
 >
-    Programmatically close and remove flyout
+    Close the flyout programmatically
 </h2>
 
 <p>
@@ -75,11 +67,7 @@
     [disabled]="!flyout"
     (click)="closeAndRemoveFlyout()"
   >
-    <sky-icon
-      icon="trash"
-    >
-    </sky-icon>
-    Remove
+    Close
   </button>
 </p>
 
@@ -105,12 +93,12 @@
     </sky-grid-column>
     <sky-grid-column
       field="constituentCode"
-      heading="Constituent Code"
+      heading="Constituent code"
     >
     </sky-grid-column>
     <sky-grid-column
       field="latestGift"
-      heading="Latest Gift"
+      heading="Latest gift"
     >
     </sky-grid-column>
     <sky-grid-column

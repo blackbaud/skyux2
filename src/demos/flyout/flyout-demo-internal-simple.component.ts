@@ -8,13 +8,13 @@ import {
     <div
       class="sky-padding-even-large"
     >
-      <h2>Basic flyout example</h2>
-      <p>A flyout can contain:</p>
+      <h2>Sample flyout</h2>
+      <p>Flyouts can display large quantities of supplementary information related to a task, including:</p>
         <ul>
-          <li>lists</li>
+          <li><a href="https://developer.blackbaud.com/skyux/components/list">lists</a></li>
           <li>record views</li>
-          <li>graphs</li>
-          <li>other information displays</li>
+          <li>analytics</li>
+          <li>other information</li>
         </ul>
     </div>
   `

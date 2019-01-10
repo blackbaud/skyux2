@@ -123,33 +123,16 @@ export class SkyFlyoutDemoComponent {
   public openFlyoutWithRoutePermalink(): void {
     const flyoutConfig: SkyFlyoutConfig = {
       permalink: {
-        label: 'View details',
+        label: 'Go to Components page',
         route: {
-          commands: ['/'],
+          commands: ['/components'],
           extras: {
             fragment: 'helloWorld',
             queryParams: {
-              myParam: 'true'
+              foo: 'bar'
             }
           }
         }
-      }
-    };
-    this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
-
-    this.flyout.closed.subscribe(() => {
-      this.flyout = undefined;
-    });
-  }
-
-  public openFlyoutWithPrimaryAction(): void {
-    const flyoutConfig: SkyFlyoutConfig = {
-      primaryAction: {
-        label: 'Invoke primary action',
-        callback: () => {
-          alert('Primary action invoked');
-        },
-        closeAfterInvoking: true
       }
     };
     this.flyout = this.flyoutService.open(SkyFlyoutDemoInternalSimpleComponent, flyoutConfig);
@@ -191,16 +174,12 @@ export class SkyFlyoutDemoComponent {
       ariaDescribedBy: 'my-describedby-id',
       ariaLabelledBy: 'my-labelledby-id',
       ariaRole: 'modal',
-      defaultWidth: 500,
-      maxWidth: 1000,
-      minWidth: 200,
       permalink: {
         route: {
           commands: ['/users', record.id],
           extras: {
-            fragment: 'foobar',
             queryParams: {
-              envid: 'fooenvid'
+              envid: '123456789'
             }
           }
         }
