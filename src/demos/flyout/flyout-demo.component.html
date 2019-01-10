@@ -1,72 +1,123 @@
+<h2
+  class="sky-section-heading"
+>
+  Basic flyout
+</h2>
+
+<p>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openSimpleFlyout()"
+  >
+    Standard width
+  </button>
+
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openFlyoutWithCutsomWidth()"
+  >
+    Custom width
+  </button>
+</p>
+
+<h2
+  class="sky-section-heading"
+>
+  Flyout with customized headers
+</h2>
+
+<p>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openFlyoutWithUrlPermalink()"
+  >
+    URL permalink
+  </button>
+
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openFlyoutWithRoutePermalink()"
+  >
+    Angular routing permalink
+  </button>
+
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    (click)="openFlyoutWithIterators()"
+  >
+    Iterators
+  </button>
+</p>
+
+<h2
+  class="sky-section-heading"
+>
+    Close the flyout programmatically
+</h2>
+
+<p>
+  <button
+    class="sky-btn sky-btn-default"
+    type="button"
+    [disabled]="!flyout"
+    (click)="closeAndRemoveFlyout()"
+  >
+    Close
+  </button>
+</p>
+
+<h2
+  class="sky-section-heading"
+>
+  Grid with flyout
+</h2>
+
 <sky-list
   [data]="users"
-  [defaultView]="grid">
-  <sky-list-view-grid #grid>
-    <sky-grid-column
-      [locked]="true"
-      [template]="customTemplate">
-    </sky-grid-column>
+  [defaultView]="grid"
+>
+  <sky-list-view-grid
+    [rowHighlightedId]="rowHighlightedId"
+    #grid
+  >
     <sky-grid-column
       field="name"
       heading="Name"
-      [locked]="true">
+      [template]="customTemplate"
+    >
+    </sky-grid-column>
+    <sky-grid-column
+      field="constituentCode"
+      heading="Constituent code"
+    >
+    </sky-grid-column>
+    <sky-grid-column
+      field="latestGift"
+      heading="Latest gift"
+    >
+    </sky-grid-column>
+    <sky-grid-column
+      field="status"
+      heading="Status"
+    >
     </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
 
 <ng-template
   let-row="row"
-  #customTemplate>
+  #customTemplate
+>
   <button
-    type="button"
     class="sky-btn sky-btn-link"
-    (click)="openRecord(row)">
-    View record
-  </button>
-  <button
-    *ngIf="isRecordOpen(row)"
     type="button"
-    class="sky-btn sky-btn-default"
-    title="Close record"
-    (click)="closeFlyout()">
-    <sky-icon icon="close"></sky-icon>
+    (click)="onNameClick(row)"
+  >
+    {{ row.name }}
   </button>
 </ng-template>
-
-<div *ngIf="flyout">
-  <p>
-    This button will close the flyout and then delete the host element from the document.
-  </p>
-
-  <button
-    type="button"
-    class="sky-btn sky-btn-default"
-    (click)="removeFlyout()">
-    <sky-icon icon="trash"></sky-icon>
-    Delete flyout
-  </button>
-</div>
-
-<div>
-  <p>
-    The following button will open a flyout with a URL permalink in the header.
-  </p>
-  <button
-    type="button"
-    class="sky-btn sky-btn-default"
-    (click)="openFlyoutWithUrlPermalink()">
-    Open flyout with a URL permalink
-  </button>
-</div>
-
-<div>
-  <p>
-    The following button will open a flyout with a button which invokes a custom action callback in the header.
-  </p>
-  <button
-    type="button"
-    class="sky-btn sky-btn-default"
-    (click)="openFlyoutWithPrimaryAction()">
-    Open flyout with a primary action
-  </button>
-</div>
