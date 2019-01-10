@@ -1,30 +1,39 @@
 <sky-page-summary>
-  <sky-page-summary-alert>
-    <sky-alert
-      alertType="info">
-      The internal flyout content is dynamic!
-    </sky-alert>
-  </sky-page-summary-alert>
   <sky-page-summary-image>
     <sky-avatar
       [name]="context.name"
-      [canChange]="false">
+    >
     </sky-avatar>
   </sky-page-summary-image>
   <sky-page-summary-title>
     {{context.name}}
   </sky-page-summary-title>
   <sky-page-summary-subtitle>
-    Board member
+    {{context.constituentCode}}
   </sky-page-summary-subtitle>
   <sky-page-summary-status>
     <sky-label
-      labelType="success">
-      Fundraiser
+      labelType="{{ context.status === 'Past due' ? 'danger' : 'success' }}"
+    >
+      {{ context.status }}
     </sky-label>
-    <sky-label>Inactive</sky-label>
   </sky-page-summary-status>
   <sky-page-summary-content>
-    This is the arbitrary content section.
+    <h2>
+      Constiuent Summary
+    </h2>
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis quae mollitia rem obcaecati. Aspernatur vitae iusto cum corporis adipisci corrupti dolore odit a impedit enim. Porro ab exercitationem quidem? Maiores!
+    </p>
   </sky-page-summary-content>
+  <sky-page-summary-key-info>
+    <sky-key-info>
+      <sky-key-info-value>
+        {{ context.latestGift }}
+      </sky-key-info-value>
+      <sky-key-info-label>
+        Latest gift
+      </sky-key-info-label>
+    </sky-key-info>
+  </sky-page-summary-key-info>
 </sky-page-summary>

@@ -94,7 +94,8 @@ import {
   SkyTileDemoTile1Component,
   SkyTileDemoTile2Component,
   SkyWizardDemoModalComponent,
-  SkyFlyoutDemoInternalComponent
+  SkyFlyoutDemoInternalComponent,
+  SkyFlyoutDemoInternalSimpleComponent
 } from './demos';
 
 import { SkyDemoService } from './demos/demo.service';
@@ -121,6 +122,7 @@ const components = [
   SkyFluidGridDemoComponent,
   SkyFlyoutDemoComponent,
   SkyFlyoutDemoInternalComponent,
+  SkyFlyoutDemoInternalSimpleComponent,
   SkyGridDemoComponent,
   SkyIconDemoComponent,
   SkyHelpInlineDemoComponent,
