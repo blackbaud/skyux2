@@ -1,3 +1,9 @@
+# 2.39.0 (2019-01-11)
+
+- Updated flyout component to improve performance. [blackbaud/skyux-flyout#16](https://github.com/blackbaud/skyux-flyout/pull/16)
+- Updated flyout demo to include iterator example. [#2239](https://github.com/blackbaud/skyux2/pull/2239)
+- Fixed styles on flyout component's resize handle in Firefox. [blackbaud/skyux-flyout#15](https://github.com/blackbaud/skyux-flyout/pull/15)
+
 # 2.38.0 (2019-01-09)
 
 - Added style for invalid `textarea` elements. [blackbaud/skyux-theme#46](https://github.com/blackbaud/skyux-theme/pull/46) (Thanks @Blackbaud-JeffDye)
