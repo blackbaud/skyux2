@@ -2,6 +2,7 @@
 
 - Updated flyout component to improve performance. [blackbaud/skyux-flyout#16](https://github.com/blackbaud/skyux-flyout/pull/16)
 - Updated flyout demo to include iterator example. [#2239](https://github.com/blackbaud/skyux2/pull/2239)
+- Fixed checkbox component to only add `aria-label` to HTML tags when the `label` property is supplied. [blackbaud/skyux-forms#14](https://github.com/blackbaud/skyux-forms/pull/14)
 - Fixed styles on flyout component's resize handle in Firefox. [blackbaud/skyux-flyout#15](https://github.com/blackbaud/skyux-flyout/pull/15)
 
 # 2.38.0 (2019-01-09)
