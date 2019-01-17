@@ -20,7 +20,7 @@ export class SkyCheckboxDemoComponent {
       disabled: true
     },
     {
-      label: 'Disabled and checked',
+      label: 'Disabled and selected',
       checked: true,
       disabled: true
     }

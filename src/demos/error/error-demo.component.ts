@@ -23,7 +23,7 @@ export class SkyErrorDemoComponent {
   public openErrorModal() {
     const config: ErrorModalConfig = {
       errorTitle: 'Something bad happened!',
-      errorDescription: 'Try to refresh this page, or come back later.',
+      errorDescription: 'Try to refresh the page or come back later.',
       errorCloseText: 'OK'
     };
 

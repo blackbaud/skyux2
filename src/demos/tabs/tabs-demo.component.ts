@@ -69,7 +69,7 @@ export class SkyTabsDemoComponent {
   }
 
   public openTabClick() {
-    alert('You clicked the open tab button');
+    alert('You selected the open tab button');
   }
 
   public tabChanged(newIndex: any) {
