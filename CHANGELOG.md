@@ -1,11 +1,11 @@
 # 2.40.0 (2019-01-18)
 
+- Added UI Config Service hooks to grid component. [blackbaud/skyux-grids#31](https://github.com/blackbaud/skyux-grids/pull/31)
+- Updated demos for checkbox and radio components with label inputs. [#2261](https://github.com/blackbaud/skyux2/pull/2261)
 - Fixed chevron component to properly align its icon in Firefox. [blackbaud/skyux-indicators#31](https://github.com/blackbaud/skyux-indicators/pull/31)
 - Fixed chevron component to properly center its icon within the button element. [blackbaud/skyux-indicators#30](https://github.com/blackbaud/skyux-indicators/pull/30)
 - Fixed chevron component to properly position its elements when container is resized. [blackbaud/skyux-indicators#26](https://github.com/blackbaud/skyux-indicators/pull/26)
 - Fixed infinite scroll component to function properly after being re-enabled. [blackbaud/skyux-lists#15](https://github.com/blackbaud/skyux-lists/pull/15)
-- Added UI Config Service hooks to grid component. [blackbaud/skyux-grids#31](https://github.com/blackbaud/skyux-grids/pull/31)
-- Updated demos for checkbox and radio components with label inputs. [#2261](https://github.com/blackbaud/skyux2/pull/2261)
 
 # 2.39.0 (2019-01-11)
 
