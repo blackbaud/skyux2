@@ -5,7 +5,7 @@
 - Fixed chevron component to properly align its icon in Firefox. [blackbaud/skyux-indicators#31](https://github.com/blackbaud/skyux-indicators/pull/31)
 - Fixed chevron component to properly center its icon within the button element. [blackbaud/skyux-indicators#30](https://github.com/blackbaud/skyux-indicators/pull/30)
 - Fixed chevron component to properly position its elements when container is resized. [blackbaud/skyux-indicators#26](https://github.com/blackbaud/skyux-indicators/pull/26)
-- Fixed infinite scroll component to function properly after being re-enabled. [blackbaud/skyux-lists#15](https://github.com/blackbaud/skyux-lists/pull/15)
+- Fixed infinite scroll component to function properly after being re-enabled. [blackbaud/skyux-lists#13](https://github.com/blackbaud/skyux-lists/pull/13)
 - Fixed modal component animation to support required changes in Angular 7. [blackbaud/skyux-modals#23](https://github.com/blackbaud/skyux-modals/pull/23)
 - Fixed tile header component to align title on baseline in Microsoft Edge and IE 11. [blackbaud/skyux-tiles#25](https://github.com/blackbaud/skyux-tiles/pull/25)
 
