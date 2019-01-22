@@ -1,4 +1,4 @@
-# 2.40.0 (2019-01-18)
+# 2.40.0 (2019-01-22)
 
 - Added UI Config Service hooks to grid component. [blackbaud/skyux-grids#31](https://github.com/blackbaud/skyux-grids/pull/31)
 - Updated demos for checkbox and radio components with label inputs. [#2261](https://github.com/blackbaud/skyux2/pull/2261)
@@ -6,6 +6,8 @@
 - Fixed chevron component to properly center its icon within the button element. [blackbaud/skyux-indicators#30](https://github.com/blackbaud/skyux-indicators/pull/30)
 - Fixed chevron component to properly position its elements when container is resized. [blackbaud/skyux-indicators#26](https://github.com/blackbaud/skyux-indicators/pull/26)
 - Fixed infinite scroll component to function properly after being re-enabled. [blackbaud/skyux-lists#15](https://github.com/blackbaud/skyux-lists/pull/15)
+- Fixed modal component animation to support required changes in Angular 7. [blackbaud/skyux-modals#23](https://github.com/blackbaud/skyux-modals/pull/23)
+- Fixed tile header component to align title on baseline in Microsoft Edge and IE 11. [blackbaud/skyux-tiles#25](https://github.com/blackbaud/skyux-tiles/pull/25)
 
 # 2.39.0 (2019-01-11)
 
