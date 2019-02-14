@@ -19,7 +19,7 @@
     class="sky-error-label"
   >
     <span [hidden]="!time.errors.skyTime.invalid" >
-      Please enter a valid time.
+      Enter a valid time.
     </span>
   </p>
 </div>
@@ -49,7 +49,7 @@
     class="sky-error-label"
   >
     <span [hidden]="!time2.errors.skyTime.invalid">
-      Please enter a valid time.
+      Enter a valid time.
     </span>
   </p>
 </div>
@@ -79,7 +79,7 @@
     class="sky-error-label"
   >
     <span [hidden]="!time.errors.skyTime.invalid">
-      Please enter a valid time.
+      Enter a valid time.
     </span>
   </p>
 </div>
@@ -114,15 +114,15 @@
     class="sky-error-label"
   >
     <span [hidden]="reactiveForm.errors && !reactiveForm.errors.time.invalid">
-      Please enter a valid time.
+      Enter a valid time.
     </span>
 
     <span *ngIf="reactiveTime.errors.required">
-      This time is required. Please supply a value.
+      Time is required. Select a value.
     </span>
 
     <span *ngIf="reactiveTime.errors.skyTime">
-      The time you have entered is invalid. Please enter a valid time or use the picker.
+      The time is invalid. Enter a valid time or use the picker.
     </span>
   </p>
 </form>
@@ -137,6 +137,6 @@
     type="button"
     (click)="clearSelectedTimes()"
   >
-    Clear selected times
+    Clear selection
   </button>
 </p>

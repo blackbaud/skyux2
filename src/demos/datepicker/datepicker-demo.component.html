@@ -19,7 +19,7 @@
     class="sky-error-label"
   >
     <span [hidden]="!date.errors.skyDate.invalid">
-      Please enter a valid date.
+      Enter a valid date.
     </span>
 
     <span [hidden]="!date.errors.skyDate.minDate">
@@ -65,11 +65,11 @@
   class="sky-error-label"
 >
   <span *ngIf="reactiveDate.errors.required">
-    This date is required. Please supply a value.
+    Date is required. Enter a value.
   </span>
 
   <span *ngIf="reactiveDate.errors.skyDate">
-    The date you have entered is invalid. Please enter a valid date or use the picker.
+    The date is invalid. Enter a valid date or use the picker.
   </span>
 </p>
 
