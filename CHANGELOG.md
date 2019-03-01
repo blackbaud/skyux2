@@ -1,3 +1,16 @@
+# 2.41.0 (2019-03-01)
+
+- Added ability to verify email addresses and URLs statically. [blackbaud/skyux-validation#9](https://github.com/blackbaud/skyux-validation/pull/9)
+- Added `blur` event to select field component. [blackbaud/skyux-select-field#11](https://github.com/blackbaud/skyux-select-field/pull/11)
+- Fixed grid component to load properly when using RxJS version 6 or above. [blackbaud/skyux-grids#47](https://github.com/blackbaud/skyux-grids/pull/47)
+- Fixed grid component to no longer truncate text when table cell is stretched wider than its original width. [blackbaud/skyux-grids#38](https://github.com/blackbaud/skyux-grids/pull/38)
+- Fixed list view grid component to not throw `ExpressionChangedAfterItHasBeenCheckedError`s when removing the last item from a page. [blackbaud/skyux-list-builder-view-grids#22](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/22)
+- Fixed select field component to prevent text overflow when label is longer than textbox. [blackbaud/skyux-select-field#12](https://github.com/blackbaud/skyux-select-field/pull/12)
+- Fixed radio and checkbox labels to align with checkboxes and radio buttons using a top baseline. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
+- Fixed radio and checkbox labels to wrap contents when overflowing a parent element. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
+- Fixed `SkyToastModule` to properly include `BrowserAnimationsModule`. [blackbaud/skyux-toast#12](https://github.com/blackbaud/skyux-toast/pull/12)
+- Removed reference to deprecated `AnimationTransitionEvent` in favor of `AnimationEvent` in the lookup component.  This allows the library to compile against later versions of Angular that have removed the deprecated type. [blackbaud/skyux-lookup#13](https://github.com/blackbaud/skyux-lookup/pull/13) 
+
 # 2.40.0 (2019-01-22)
 
 - Added UI Config Service hooks to grid component. [blackbaud/skyux-grids#31](https://github.com/blackbaud/skyux-grids/pull/31)
