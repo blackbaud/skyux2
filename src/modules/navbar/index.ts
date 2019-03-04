@@ -1,9 +1,3 @@
-export {
-  SkyNavbarComponent
-} from './navbar.component';
-export {
-  SkyNavbarItemComponent
-} from './navbar-item.component';
-export {
-  SkyNavbarModule
-} from './navbar.module';
+export * from './navbar.component';
+export * from './navbar-item.component';
+export * from './navbar.module';
