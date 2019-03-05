@@ -1,3 +1,7 @@
+# 2.42.0 (2019-03-05)
+
+- Added `SkyDatePipe` to allow `SkyAppLocaleProvider` to provide preferred locale of Angular's underlying `DatePipe`. [blackbaud/skyux-datetime#20](https://github.com/blackbaud/skyux-datetime/pull/20)
+
 # 2.41.0 (2019-03-01)
 
 - Added ability to verify email addresses and URLs statically. [blackbaud/skyux-validation#9](https://github.com/blackbaud/skyux-validation/pull/9)
@@ -9,7 +13,7 @@
 - Fixed radio and checkbox labels to align with checkboxes and radio buttons using a top baseline. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
 - Fixed radio and checkbox labels to wrap contents when overflowing a parent element. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
 - Fixed `SkyToastModule` to properly include `BrowserAnimationsModule`. [blackbaud/skyux-toast#12](https://github.com/blackbaud/skyux-toast/pull/12)
-- Removed reference to deprecated `AnimationTransitionEvent` in favor of `AnimationEvent` in the lookup component.  This allows the library to compile against later versions of Angular that have removed the deprecated type. [blackbaud/skyux-lookup#13](https://github.com/blackbaud/skyux-lookup/pull/13) 
+- Removed reference to deprecated `AnimationTransitionEvent` in favor of `AnimationEvent` in the lookup component.  This allows the library to compile against later versions of Angular that have removed the deprecated type. [blackbaud/skyux-lookup#13](https://github.com/blackbaud/skyux-lookup/pull/13)
 
 # 2.40.0 (2019-01-22)
 
