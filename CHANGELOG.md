@@ -1,4 +1,4 @@
-# 2.42.0 (2019-03-07)
+# 2.43.0 (2019-03-07)
 
 - Added `collapse` and `expand` events to repeater item component. [blackbaud/skyux-lists#25](https://github.com/blackbaud/skyux-lists/pull/25)
 - Updated `list-builder` peer dependency to prevent list view grid component from throwing `ExpressionChangedAfterItHasBeenCheckedError` when removing last item from page. [blackbaud/skyux-list-builder-view-grids#31](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/31)
@@ -6,6 +6,10 @@
 - Fixed grid component to no longer emit extra `selectedColumnIdsChange` events. [blackbaud/skyux-grids#36](https://github.com/blackbaud/skyux-grids/pull/36)
 - Fixed list view grid component to not trigger excessive data fetches. [blackbaud/skyux-list-builder-view-grids#20](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/20)
 - Fixed list paging component to update after list items change. [blackbaud/skyux-list-builder#25](https://github.com/blackbaud/skyux-list-builder/pull/25)
+
+# 2.42.0 (2019-03-05)
+
+- Added `SkyDatePipe` to allow `SkyAppLocaleProvider` to provide preferred locale of Angular's underlying `DatePipe`. [blackbaud/skyux-datetime#20](https://github.com/blackbaud/skyux-datetime/pull/20)
 
 # 2.41.0 (2019-03-01)
 
@@ -18,7 +22,7 @@
 - Fixed radio and checkbox labels to align with checkboxes and radio buttons using a top baseline. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
 - Fixed radio and checkbox labels to wrap contents when overflowing a parent element. [blackbaud/skyux-theme#50](https://github.com/blackbaud/skyux-theme/pull/50)
 - Fixed `SkyToastModule` to properly include `BrowserAnimationsModule`. [blackbaud/skyux-toast#12](https://github.com/blackbaud/skyux-toast/pull/12)
-- Removed reference to deprecated `AnimationTransitionEvent` in favor of `AnimationEvent` in the lookup component.  This allows the library to compile against later versions of Angular that have removed the deprecated type. [blackbaud/skyux-lookup#13](https://github.com/blackbaud/skyux-lookup/pull/13) 
+- Removed reference to deprecated `AnimationTransitionEvent` in favor of `AnimationEvent` in the lookup component.  This allows the library to compile against later versions of Angular that have removed the deprecated type. [blackbaud/skyux-lookup#13](https://github.com/blackbaud/skyux-lookup/pull/13)
 
 # 2.40.0 (2019-01-22)
 
