@@ -1,3 +1,12 @@
+# 2.43.0 (2019-03-07)
+
+- Added `collapse` and `expand` events to repeater item component. [blackbaud/skyux-lists#25](https://github.com/blackbaud/skyux-lists/pull/25)
+- Updated `list-builder` peer dependency to prevent list view grid component from throwing `ExpressionChangedAfterItHasBeenCheckedError` when removing last item from page. [blackbaud/skyux-list-builder-view-grids#31](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/31)
+- Reverted change to list view grid component from `3.0.1`. [blackbaud/skyux-list-builder-view-grids#30](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/30)
+- Fixed grid component to no longer emit extra `selectedColumnIdsChange` events. [blackbaud/skyux-grids#36](https://github.com/blackbaud/skyux-grids/pull/36)
+- Fixed list view grid component to not trigger excessive data fetches. [blackbaud/skyux-list-builder-view-grids#20](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/20)
+- Fixed list paging component to update after list items change. [blackbaud/skyux-list-builder#25](https://github.com/blackbaud/skyux-list-builder/pull/25)
+
 # 2.42.0 (2019-03-05)
 
 - Added `SkyDatePipe` to allow `SkyAppLocaleProvider` to provide preferred locale of Angular's underlying `DatePipe`. [blackbaud/skyux-datetime#20](https://github.com/blackbaud/skyux-datetime/pull/20)
