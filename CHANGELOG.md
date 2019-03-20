@@ -1,3 +1,12 @@
+# 2.44.0 (2019-03-20)
+
+- Added `list-builder` support for multiselect toolbar. [blackbaud/skyux-list-builder#18](https://github.com/blackbaud/skyux-list-builder/pull/18/)
+- Added support for `microedge-rxstate@>=2.0.2` to `list-builder` component. [blackbaud/skyux-list-builder#33](https://github.com/blackbaud/skyux-list-builder/pull/33)
+- Added support for `microedge-rxstate@>=2.0.2` to `list-builder-view-checkilst` component. [blackbaud/skyux-list-builder-view-checklist#26](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/26)
+- Added support for `microedge-rxstate@>=2.0.2` to `list-builder-view-grids` component. [blackbaud/skyux-list-builder-view-grids#32](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/32)
+- Fixed `SkyListViewGridComponent` to properly import `scan` RxJS operator. [blackbaud/skyux-list-builder-view-grids#32](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/32)
+- Fixed `ListPagingComponent` to properly import `scan` RxJS operator. [blackbaud/skyux-list-builder#33](https://github.com/blackbaud/skyux-list-builder/pull/33)
+
 # 2.43.0 (2019-03-07)
 
 - Added `collapse` and `expand` events to repeater item component. [blackbaud/skyux-lists#25](https://github.com/blackbaud/skyux-lists/pull/25)
