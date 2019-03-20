@@ -1,3 +1,13 @@
+# 2.45.0 (2019-03-20)
+
+- Added `ariaLabel` property to radio group component. [blackbaud/skyux-forms#26](https://github.com/blackbaud/skyux-forms/pull/26)
+- Fixed flyout component to close when navigation occurs. [blackbaud/skyux-flyout#22](https://github.com/blackbaud/skyux-flyout/pull/22)
+- Fixed radio group component to properly watch for changes to its radio components. [blackbaud/skyux-forms#26](https://github.com/blackbaud/skyux-forms/pull/26)
+- Fixed page summary component so that content always fills parent container. [blackbaud/skyux-layout#22](https://github.com/blackbaud/skyux-layout/pull/22)
+- Fixed action button components to wrap when they overflow their action button container component. [blackbaud/skyux-layout#23](https://github.com/blackbaud/skyux-layout/pull/23)
+- Fixed visual styles for action button container component. [blackbaud/skyux-layout#23](https://github.com/blackbaud/skyux-layout/pull/23)
+- Fixed `SkyListToolbarModule` to properly import `SkyListBuilderResourcesModule`. [blackbaud/skyux-list-builder#37](https://github.com/blackbaud/skyux-list-builder/pull/37/)
+
 # 2.44.1 (2019-03-20)
 
 - Fixed missing dependency for `@skyux/navbar`. [#2326](https://github.com/blackbaud/skyux2/pull/2326)
