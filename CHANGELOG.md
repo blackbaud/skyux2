@@ -6,7 +6,7 @@
 - Fixed page summary component so that content always fills parent container. [blackbaud/skyux-layout#22](https://github.com/blackbaud/skyux-layout/pull/22)
 - Fixed action button components to wrap when they overflow their action button container component. [blackbaud/skyux-layout#23](https://github.com/blackbaud/skyux-layout/pull/23)
 - Fixed visual styles for action button container component. [blackbaud/skyux-layout#23](https://github.com/blackbaud/skyux-layout/pull/23)
-- Fixed `SkyListToolbarModule` to properly import `SkyListBuilderResourcesModule`. [blackbaud/skyux-list-builder#37](https://github.com/blackbaud/skyux-list-builder/pull/37/)
+- Fixed `SkyListToolbarModule` to properly import `SkyListBuilderResourcesModule`. [blackbaud/skyux-list-builder#37](https://github.com/blackbaud/skyux-list-builder/pull/37)
 
 # 2.44.1 (2019-03-20)
 
