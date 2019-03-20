@@ -1,3 +1,7 @@
+# 2.44.1 (2019-03-20)
+
+- Fixed missing dependency for `@skyux/navbar`.
+
 # 2.44.0 (2019-03-20)
 
 - Added support for multiselect toolbar. [blackbaud/skyux-list-builder#18](https://github.com/blackbaud/skyux-list-builder/pull/18/)
