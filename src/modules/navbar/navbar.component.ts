@@ -1,1 +1,3 @@
-export * from '@skyux/navbar/modules/navbar/navbar.component';
+export {
+  SkyNavbarComponent
+} from '@skyux/navbar/modules/navbar/navbar.component';
