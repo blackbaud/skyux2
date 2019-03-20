@@ -1,6 +1,6 @@
 # 2.44.1 (2019-03-20)
 
-- Fixed missing dependency for `@skyux/navbar`.
+- Fixed missing dependency for `@skyux/navbar`. [#2326](https://github.com/blackbaud/skyux2/pull/2326)
 
 # 2.44.0 (2019-03-20)
 
