@@ -1,4 +1,8 @@
-<sky-list [data]="items" [defaultView]="grid">
+<h3>List view grid with list column selector and templated column</h3>
+
+<sky-list
+  [data]="data"
+>
   <sky-list-toolbar>
     <sky-list-column-selector-action
       helpKey="default.htm"
@@ -7,52 +11,100 @@
     >
     </sky-list-column-selector-action>
   </sky-list-toolbar>
-
-  <sky-list-view-grid fit="scroll" #grid>
+  <sky-list-view-grid
+    fit="scroll"
+    (selectedColumnIdsChange)="onSelectedColumnIdsChange($event)"
+    #grid
+  >
     <sky-grid-column
-      field="control"
+      id="contextMenuColumn"
       [locked]="true"
-      [template]="customCellTemplate">
+      [template]="contextMenuTemplate"
+      [width]="50"
+    >
     </sky-grid-column>
     <sky-grid-column
-      field="column1"
-      [locked]="true"
-      [heading]="asyncHeading | async"
-      description="A numbered column">
+      id="name"
+      field="name"
+      heading="Name"
+    >
     </sky-grid-column>
     <sky-grid-column
-      field="column2"
-      heading="Column2"
-      description="A fruit column">
+      id="email"
+      field="email"
+      heading="Email"
+    >
     </sky-grid-column>
     <sky-grid-column
-      field="column3"
-      heading="Column3"
-      description="A sentence column">
+      id="amount"
+      field="amount"
+      heading="Amount"
+    >
     </sky-grid-column>
   </sky-list-view-grid>
 </sky-list>
 
 <ng-template
-  #customCellTemplate
-  let-row="row">
-  <sky-dropdown buttonType="context-menu">
+  #contextMenuTemplate
+>
+  <sky-dropdown
+    buttonType="context-menu"
+  >
     <sky-dropdown-menu>
       <sky-dropdown-item>
-        <button type="button">
-          Option 1
+        <button
+          type="button"
+        >
+          Make admin
         </button>
       </sky-dropdown-item>
       <sky-dropdown-item>
-        <button type="button">
-          Option 2
+        <button
+          type="button"
+        >
+          Disable
         </button>
       </sky-dropdown-item>
       <sky-dropdown-item>
-        <button type="button">
-          Option 3
+        <button
+          type="button"
+        >
+          Delete
         </button>
       </sky-dropdown-item>
     </sky-dropdown-menu>
   </sky-dropdown>
 </ng-template>
+
+<h3>List view grid with multiselect</h3>
+
+<sky-list
+  [data]="dataForMultiselect"
+  (selectedIdsChange)="onSelectedIdsChange($event)"
+>
+  <sky-list-toolbar></sky-list-toolbar>
+  <sky-list-view-grid
+    fit="scroll"
+    [enableMultiselect]="true"
+    #multiselectGrid
+  >
+    <sky-grid-column
+      id="name"
+      field="name"
+      heading="Name"
+    >
+    </sky-grid-column>
+    <sky-grid-column
+      id="email"
+      field="email"
+      heading="Email"
+    >
+    </sky-grid-column>
+    <sky-grid-column
+      id="amount"
+      field="amount"
+      heading="Amount"
+    >
+    </sky-grid-column>
+  </sky-list-view-grid>
+</sky-list>
