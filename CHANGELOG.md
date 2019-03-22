@@ -1,3 +1,8 @@
+# 2.46.0 (2019-03-22)
+
+- Added support for `@skyux/list-builder@^3.2.1` to add multiselect toolbar to list view grid component. [blackbaud/skyux-list-builder-view-grids#21](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/21)
+- Fixed list view checklist component toolbar to follow UX guidelines. [blackbaud/skyux-list-builder-view-checklist#25](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/25)
+
 # 2.45.0 (2019-03-20)
 
 - Added `ariaLabel` property to radio group component. [blackbaud/skyux-forms#26](https://github.com/blackbaud/skyux-forms/pull/26)
