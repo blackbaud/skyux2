@@ -4,10 +4,6 @@ import {
 
 import 'rxjs/add/observable/of';
 
-import {
-  SkyGridSelectedRowsModelChange
-} from '@skyux/grids';
-
 @Component({
   selector: 'sky-list-view-grid-demo',
   templateUrl: './list-view-grid-demo.component.html'
@@ -32,7 +28,7 @@ export class SkyListViewGridDemoComponent {
     );
   }
 
-  public onSelectedColumnIdsChange(selectedColumnIds: string[]) {
+  public onSelectedColumnIdsChange(selectedColumnIds: string[]): void {
     console.log(selectedColumnIds);
   }
 
