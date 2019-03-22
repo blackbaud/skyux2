@@ -27,13 +27,13 @@ import {
 export class SkyGridDemoComponent implements OnInit {
 
   public data = [
-    { id: '1', name: 'Niels Bohr', email: 'niels.bohr@foo.bar', amount: 170.75, status: 'Paid' },
-    { id: '2', name: 'Ada Lovelace', email: 'ada.lovelace@foo.bar', amount: 114.13, status: 'Paid' },
-    { id: '3', name: 'Marie Curie', email: 'marie.curie@foo.bar', amount: 111, status: 'Past due' },
-    { id: '4', name: 'Barbara McClintock', email: 'barbara.mcclintock@foo.bar', amount: 84.63, status: 'Paid' },
-    { id: '5', name: 'Michael Faraday', email: 'michael.faraday@foo.bar', amount: 83.97, status: 'Paid' },
-    { id: '6', name: 'Enrico Fermi', email: 'enrico.fermi@foo.bar', amount: 74.5, status: 'Past due' },
-    { id: '7', name: 'Mae C. Jemison', email: 'mae.jemison@foo.bar', amount: 70.86, status: 'Paid' }
+    { id: '1', name: 'Niels Bohr', email: 'niels.bohr@example.com', amount: 170.75, status: 'Paid' },
+    { id: '2', name: 'Ada Lovelace', email: 'ada.lovelace@example.com', amount: 114.13, status: 'Paid' },
+    { id: '3', name: 'Marie Curie', email: 'marie.curie@example.com', amount: 111, status: 'Past due' },
+    { id: '4', name: 'Barbara McClintock', email: 'barbara.mcclintock@example.com', amount: 84.63, status: 'Paid' },
+    { id: '5', name: 'Michael Faraday', email: 'michael.faraday@example.com', amount: 83.97, status: 'Paid' },
+    { id: '6', name: 'Enrico Fermi', email: 'enrico.fermi@example.com', amount: 74.5, status: 'Past due' },
+    { id: '7', name: 'Mae C. Jemison', email: 'mae.jemison@example.com', amount: 70.86, status: 'Paid' }
   ];
 
   public dataForMultiselect = this.data.slice(0);
