@@ -1,3 +1,9 @@
+# 2.46.1 (2019-03-28)
+
+- Fixed radio group component to support boolean values. [blackbaud/skyux-forms#31](https://github.com/blackbaud/skyux-forms/pull/31)
+- Fixed `SkyNumericModule` to properly import `SkyI18nModule` and to provide `SkyNumericPipe`. [blackbaud/skyux-core#72](https://github.com/blackbaud/skyux-core/pull/72)
+- Fixed `SkyNumericService` to support `@angular/core@^5.0.0`. [blackbaud/skyux-core#71](https://github.com/blackbaud/skyux-core/pull/71)
+
 # 2.46.0 (2019-03-22)
 
 - Added support for `@skyux/list-builder@^3.2.1` to add multiselect toolbar to list view grid component. [blackbaud/skyux-list-builder-view-grids#21](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/21)
