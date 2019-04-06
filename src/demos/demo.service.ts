@@ -55,6 +55,7 @@ import {
   SkySortDemoComponent,
   SkyTabsDemoComponent,
   SkyTextExpandDemoComponent,
+  SkyTextExpandRepeaterDemoComponent,
   SkyTextHighlightDemoComponent,
   SkyTileDemoComponent,
   SkyTimepickerDemoComponent,
@@ -1055,10 +1056,26 @@ export class SkyDemoService {
           fileContents: require('!!raw-loader!./text-expand/text-expand-demo.component.html')
         },
         {
-          name: 'tabs-demo.component.ts',
+          name: 'text-expand-demo.component.ts',
           fileContents: require('!!raw-loader!./text-expand/text-expand-demo.component.ts'),
           componentName: 'SkyTextExpandDemoComponent',
           bootstrapSelector: 'sky-text-expand-demo'
+        }
+      ]
+    },
+    {
+      name: 'Text expand repeater',
+      component: SkyTextExpandRepeaterDemoComponent,
+      files: [
+        {
+          name: 'text-expand-repeater-demo.component.html',
+          fileContents: require('!!raw-loader!./text-expand-repeater/text-expand-repeater-demo.component.html')
+        },
+        {
+          name: 'text-expand-repeater-demo.component.ts',
+          fileContents: require('!!raw-loader!./text-expand-repeater/text-expand-repeater-demo.component.ts'),
+          componentName: 'SkyTextExpandRepeaterDemoComponent',
+          bootstrapSelector: 'sky-text-expand-repeater-demo'
         }
       ]
     },
