@@ -1,13 +1,5 @@
 <h3>
-  Text expand
-</h3>
-
-<sky-text-expand
-  [text]="shortText">
-</sky-text-expand>
-
-<h3>
-  Text expand modal view
+  Text expand inline
 </h3>
 
 <sky-text-expand
@@ -15,10 +7,19 @@
 </sky-text-expand>
 
 <h3>
-  Text expand modal view (with newlines)
+  Text expand modal view
 </h3>
 
 <sky-text-expand
   [text]="longText"
+  [maxExpandedLength]="100">
+</sky-text-expand>
+
+<h3>
+  Text expand modal view with newline characters
+</h3>
+
+<sky-text-expand
+  [text]="newlinesText"
   [truncateNewlines]="false">
 </sky-text-expand>
