@@ -50,7 +50,7 @@
     "@skyux/forms": "3.1.1",
     "@skyux/grids": "3.1.3",
     "@skyux/indicators": "3.0.3",
-    "@skyux/layout": "3.0.1",
+    "@skyux/layout": "3.1.0",
     "@skyux/link-records": "3.0.0",
     "@skyux/list-builder-common": "3.0.0",
     "@skyux/list-builder-view-checklist": "3.1.1",
