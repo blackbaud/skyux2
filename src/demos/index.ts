@@ -45,6 +45,7 @@ export * from './select-field';
 export * from './sort';
 export * from './tabs';
 export * from './text-expand';
+export * from './text-expand-repeater';
 export * from './text-highlight';
 export * from './tile';
 export * from './timepicker';
