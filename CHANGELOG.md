@@ -3,7 +3,7 @@
 - Added ability to place items on the right side of the toolbar component. [blackbaud/skyux-layout#18](https://github.com/blackbaud/skyux-layout/pull/18)
 - Added date-range picker component. [blackbaud/skyux-datetime#30](https://github.com/blackbaud/skyux-datetime/pull/30)
 - Removed requirement for datepicker input directive to include reference to wrapping datepicker component. [blackbaud/skyux-datetime#29](https://github.com/blackbaud/skyux-datetime/pull/29)
-- Fixed datepicker input directive to properly set `dirty`, `touched`, and `invalid` states on control value accessor. [skyux-datetime#29](https://github.com/blackbaud/skyux-datetime/pull/29)
+- Fixed datepicker input directive to properly set `dirty`, `touched`, and `invalid` states on control value accessor. [blackbaud/skyux-datetime#29](https://github.com/blackbaud/skyux-datetime/pull/29)
 - Fixed efficiency issues in tabset component. [blackbaud/skyux-tabs#16](https://github.com/blackbaud/skyux-tabs/pull/16)
 - Fixed missing list builder model exports. [blackbaud/skyux-list-builder#39](https://github.com/blackbaud/skyux-list-builder/pull/39)
 - Fixed toolbar item components to wrap when they overflow their toolbar component. [blackbaud/skyux-layout#26](https://github.com/blackbaud/skyux-layout/pull/26)
