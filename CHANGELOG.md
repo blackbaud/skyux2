@@ -1,3 +1,15 @@
+# 2.47.0 (2019-04-12)
+
+- Added ability to place items on right side of toolbar component. [blackbaud/skyux-layout#18](https://github.com/blackbaud/skyux-layout/pull/18)
+- Added date range picker component. [blackbaud/skyux-datetime#30](https://github.com/blackbaud/skyux-datetime/pull/30)
+- Removed requirement for datepicker input directive to include reference to wrapping datepicker component. [blackbaud/skyux-datetime#29](https://github.com/blackbaud/skyux-datetime/pull/29)
+- Fixed datepicker input directive to properly set `dirty`, `touched`, and `invalid` states on control value accessor. [blackbaud/skyux-datetime#29](https://github.com/blackbaud/skyux-datetime/pull/29)
+- Fixed efficiency issues in tabset component. [blackbaud/skyux-tabs#16](https://github.com/blackbaud/skyux-tabs/pull/16)
+- Fixed missing list builder model exports. [blackbaud/skyux-list-builder#39](https://github.com/blackbaud/skyux-list-builder/pull/39)
+- Fixed toolbar item components to wrap when they overflow their toolbar component. [blackbaud/skyux-layout#26](https://github.com/blackbaud/skyux-layout/pull/26)
+- Fixed toolbar to hide multiselect controls in single select mode. [blackbaud/skyux-list-builder-view-checklist#30](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/30)
+- Fixed visual styles for checklist checkbox labels. [blackbaud/skyux-list-builder-view-checklist#21](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/21)
+
 # 2.46.1 (2019-03-28)
 
 - Fixed radio group component to support boolean values. [blackbaud/skyux-forms#31](https://github.com/blackbaud/skyux-forms/pull/31)
