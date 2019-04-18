@@ -2,7 +2,7 @@
 
 - Added missing RxJS imports to flyout component that caused compilation errors in some consuming applications. [blackbaud/skyux-flyout#27](https://github.com/blackbaud/skyux-flyout/pull/27)  (Thanks @Blackbaud-KevinHutson)
 - Fixed repeater item component to have correct padding when no repeater item header is present. [blackbaud/skyux-lists#32](https://github.com/blackbaud/skyux-lists/pull/32)
-- Fixed list toolbar view actions component to properly align to right side of the toolbar. [blackbaud/skyux-list-builder#41](https://github.com/blackbaud/skyux-list-builder/pull/41)
+- Fixed list toolbar view actions component to properly align to right side of toolbar. [blackbaud/skyux-list-builder#41](https://github.com/blackbaud/skyux-list-builder/pull/41)
 - Fixed toolbar component styles to prevent collapsed search bar. [blackbaud/skyux-layout#30](https://github.com/blackbaud/skyux-layout/pull/30)
 - Fixed grid component module to properly provide `SkyAppWindowRef`. [#52](https://github.com/blackbaud/skyux-grids/pull/52)
 
