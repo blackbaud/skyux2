@@ -34,6 +34,7 @@ import { SkyFluidGridModule } from './modules/fluid-grid/fluid-grid.module';
 import { SkyFlyoutModule } from './modules/flyout/flyout.module';
 import { SkyGridModule } from './modules/grid';
 import { SkyIconModule } from './modules/icon';
+import { SkyInlineFormModule } from '@skyux/inline-form';
 import { SkyHelpInlineModule } from './modules/help-inline';
 import { SkyInfiniteScrollModule } from './modules/infinite-scroll';
 import { SkyKeyInfoModule } from './modules/key-info';
@@ -98,6 +99,7 @@ import { SkyWaitModule } from './modules/wait';
     SkyFlyoutModule,
     SkyGridModule,
     SkyIconModule,
+    SkyInlineFormModule,
     SkyHelpInlineModule,
     SkyInfiniteScrollModule,
     SkyKeyInfoModule,
@@ -143,6 +145,7 @@ import { SkyWaitModule } from './modules/wait';
 })
 export class SkyModule { }
 
+export * from '@skyux/inline-form';
 export * from './modules/alert';
 export * from './modules/animation';
 export * from './modules/autocomplete';
