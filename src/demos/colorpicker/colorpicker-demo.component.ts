@@ -9,7 +9,7 @@ import {
 import {
   SkyColorpickerMessage,
   SkyColorpickerMessageType
-} from '../../core';
+} from '@skyux/colorpicker';
 
 @Component({
   selector: 'sky-colorpicker-demo',
