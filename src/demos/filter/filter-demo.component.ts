@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   SkyModalService,
   SkyModalCloseArgs
-} from '../../core';
+} from '@skyux/modals';
 
 import { SkyFilterDemoModalComponent } from './filter-demo-modal.component';
 import { SkyFilterDemoModalContext } from './filter-demo-modal-context';

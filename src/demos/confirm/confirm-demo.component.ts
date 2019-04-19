@@ -5,7 +5,7 @@ import {
   SkyConfirmInstance,
   SkyConfirmService,
   SkyConfirmType
-} from '../../core';
+} from '@skyux/modals';
 
 @Component({
   selector: 'sky-confirm-demo',

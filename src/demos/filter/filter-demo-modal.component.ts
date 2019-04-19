@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { SkyModalInstance } from '../../core';
+import { SkyModalInstance } from '@skyux/modals';
 
 import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
 

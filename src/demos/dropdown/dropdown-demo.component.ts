@@ -9,7 +9,7 @@ import {
   SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownMenuChange
-} from '../../core';
+} from '@skyux/popovers';
 
 @Component({
   selector: 'sky-dropdown-demo',
