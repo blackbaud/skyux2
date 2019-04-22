@@ -5,7 +5,7 @@ import {
 
 import {
   SkyToastInstance
-} from '../../core';
+} from '@skyux/toast';
 
 import {
   SkyToastCustomDemoContext

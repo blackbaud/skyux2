@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import {
   SkyWaitService
-} from '../../core';
+} from '@skyux/indicators';
 
 @Component({
   selector: 'sky-wait-demo',

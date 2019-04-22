@@ -10,7 +10,7 @@ import {
   SkyTokenSelectedEventArgs,
   SkyTokensMessageType,
   SkyTokensMessage
-} from '../../core';
+} from '@skyux/indicators';
 
 @Component({
   selector: 'sky-tokens-demo',

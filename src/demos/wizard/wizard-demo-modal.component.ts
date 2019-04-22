@@ -4,10 +4,13 @@ import {
 } from '@angular/core';
 
 import {
-  SkyModalInstance,
+  SkyModalInstance
+} from '@skyux/modals';
+
+import {
   SkyProgressIndicatorChange,
   SkyProgressIndicatorDisplayMode
-} from '../../core';
+} from '@skyux/progress-indicator';
 
 @Component({
   selector: 'sky-wizard-demo-modal',

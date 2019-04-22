@@ -4,7 +4,7 @@ import {
 
 import {
   SkyModalService
-} from '../../core';
+} from '@skyux/modals';
 
 import {
   SkyWizardDemoModalComponent

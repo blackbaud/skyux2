@@ -16,8 +16,9 @@ import {
 
 import {
   SkyFlyoutInstance,
-  SkyFlyoutService
-} from '../../core';
+  SkyFlyoutService,
+  SkyFlyoutConfig
+} from '@skyux/flyout';
 
 import {
   FlyoutDemoContext
@@ -29,19 +30,15 @@ import {
 
 import {
   SkyListViewGridComponent
-} from '../../modules/list-view-grid';
+} from '@skyux/list-builder-view-grids';
 
 import {
   ListItemModel
-} from '../../modules/list/state';
+} from '@skyux/list-builder-common';
 
 import {
   SkyFlyoutDemoInternalSimpleComponent
 } from './flyout-demo-internal-simple.component';
-
-import {
-  SkyFlyoutConfig
-} from '../../modules/flyout';
 
 @Component({
   selector: 'sky-flyout-demo',
