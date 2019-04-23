@@ -9,11 +9,14 @@ import {
 } from 'rxjs';
 
 import {
-  SkyProgressIndicatorMessageType,
-  SkyModalService,
   SkyProgressIndicatorChange,
+  SkyProgressIndicatorMessageType
+} from '@skyux/progress-indicator';
+
+import {
+  SkyModalService,
   SkyModalCloseArgs
-} from '../../core';
+} from '@skyux/modals';
 
 import {
   SkyProgressIndicatorDemoFormComponent

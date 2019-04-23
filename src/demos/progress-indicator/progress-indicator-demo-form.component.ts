@@ -4,7 +4,7 @@ import {
 
 import {
   SkyModalInstance
-} from '../../core';
+} from '@skyux/modals';
 
 import {
   SkyProgressIndicatorDemoContext

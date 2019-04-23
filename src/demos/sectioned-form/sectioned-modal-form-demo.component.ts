@@ -5,9 +5,12 @@ import {
 } from '@angular/core';
 
 import {
-  SkyModalInstance,
+  SkyModalInstance
+} from '@skyux/modals';
+
+import {
   SkySectionedFormComponent
-} from '../../core';
+} from '@skyux/tabs';
 
 @Component({
   selector: 'sky-sectioned-modal-form-demo',

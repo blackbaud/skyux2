@@ -6,7 +6,7 @@ import {
 import {
   SkyModalService,
   SkyModalCloseArgs
-} from '../../core';
+} from '@skyux/modals';
 
 import {
   SkySectionedModalFormDemoComponent
