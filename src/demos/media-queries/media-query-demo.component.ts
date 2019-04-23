@@ -10,7 +10,7 @@ import {
 import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
-} from '../../core';
+} from '@skyux/core';
 
 @Component({
   selector: 'sky-media-query-demo',

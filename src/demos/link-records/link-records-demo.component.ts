@@ -7,7 +7,7 @@ import {
   SKY_LINK_RECORDS_STATUSES,
   SkyLinkRecordsComponent,
   SkyLinkRecordsMatchModel
-} from '../../core';
+} from '@skyux/link-records';
 
 const getWindow = () => {
   return window;
