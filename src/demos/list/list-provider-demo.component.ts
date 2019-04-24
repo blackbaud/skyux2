@@ -13,7 +13,7 @@ import {
   ListDataRequestModel,
   ListDataResponseModel,
   ListItemModel
-} from '../../core';
+} from '@skyux/lists';
 
 @Injectable()
 export class DemoListProvider extends ListDataProvider {

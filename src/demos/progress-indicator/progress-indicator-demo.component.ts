@@ -26,7 +26,7 @@ import {
 } from './progress-indicator-demo-context';
 
 @Component({
-  selector: 'app-progress-indicator-demo',
+  selector: 'sky-progress-indicator-demo',
   templateUrl: './progress-indicator-demo.component.html',
   styleUrls: ['./progress-indicator-demo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
