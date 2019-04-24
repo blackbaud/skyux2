@@ -1,3 +1,9 @@
+# 2.48.1 (2019-04-24)
+
+- Fixed modal component to prevent clicks from propagating. [blackbaud/skyux-modals#35](https://github.com/blackbaud/skyux-modals/pull/35)
+- Fixed toast component to prevent clicks from propagating. [blackbaud/skyux-toast#16](https://github.com/blackbaud/skyux-toast/pull/16)
+- Fixed tabset component to prevent throwing `ViewDestroyedError`s in modals. [blackbaud/skyux-tabs#21](https://github.com/blackbaud/skyux-tabs/pull/21)
+
 # 2.48.0 (2019-04-18)
 
 - Added missing RxJS imports to flyout component to prevent compilation errors in consuming applications. [blackbaud/skyux-flyout#27](https://github.com/blackbaud/skyux-flyout/pull/27)  (Thanks @Blackbaud-KevinHutson)
