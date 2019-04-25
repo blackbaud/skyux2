@@ -1,3 +1,7 @@
+# 2.48.2 (2019-04-25)
+
+- Fixed date range picker component to run validation after users select dates with date picker. [blackbaud/skyux-datetime#34](https://github.com/blackbaud/skyux-datetime/pull/34)
+
 # 2.48.1 (2019-04-24)
 
 - Fixed modal component to prevent clicks from propagating. [blackbaud/skyux-modals#35](https://github.com/blackbaud/skyux-modals/pull/35)
