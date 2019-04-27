@@ -1,3 +1,10 @@
+# 2.48.3 (2019-04-26)
+
+- Fixed flyout component to remain open when users click internal components. [blackbaud/skyux-flyout#30](https://github.com/blackbaud/skyux-flyout/pull/30)
+- Fixed modal component to handle click events that originate within its contents. [blackbaud/skyux-modals#40](https://github.com/blackbaud/skyux-modals/pull/40)
+- Fixed toast component to handle click events that originate within its contents. [blackbaud/skyux-toast#18](https://github.com/blackbaud/skyux-toast/pull/18)
+
+
 # 2.48.2 (2019-04-25)
 
 - Fixed date range picker component to run validation after users select dates with date picker. [blackbaud/skyux-datetime#34](https://github.com/blackbaud/skyux-datetime/pull/34)
