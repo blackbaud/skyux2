@@ -4,11 +4,14 @@ import {
 } from '@angular/core';
 
 import {
+  ListItemModel
+} from '@skyux/list-builder-common';
+
+import {
   ListState,
   ListStateDispatcher,
-  ListItemsLoadAction,
-  ListItemModel
-} from '../../core';
+  ListItemsLoadAction
+} from '@skyux/list-builder/modules/list/state';
 
 @Component({
   selector: 'sky-list-paging-demo',

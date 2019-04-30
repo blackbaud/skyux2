@@ -4,7 +4,7 @@ import {
 
 import {
   SkyModalService
-} from '../../core';
+} from '@skyux/modals';
 
 import {
   SkyWizardDemoModalComponent
@@ -15,7 +15,9 @@ import {
   templateUrl: './wizard-demo.component.html'
 })
 export class SkyWizardDemoComponent {
-  constructor(private modal: SkyModalService) { }
+  constructor(
+    private modal: SkyModalService
+  ) { }
 
   public openWizard(): void {
     this.modal.open(SkyWizardDemoModalComponent);

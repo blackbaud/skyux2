@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
   SkyConfirmButtonAction,
   SkyConfirmInstance,
   SkyConfirmService,
   SkyConfirmType
-} from '../../core';
+} from '@skyux/modals';
 
 @Component({
   selector: 'sky-confirm-demo',

@@ -4,13 +4,13 @@ import {
 } from '@angular/core';
 
 import {
-  Subscription
-} from 'rxjs/Subscription';
-
-import {
   SkyMediaQueryService,
   SkyMediaBreakpoints
-} from '../../core';
+} from '@skyux/core';
+
+import {
+  Subscription
+} from 'rxjs/Subscription';
 
 @Component({
   selector: 'sky-media-query-demo',
@@ -21,7 +21,9 @@ export class SkyMediaQueryDemoComponent implements OnDestroy {
 
   private querySubscription: Subscription;
 
-  constructor(private mediaQueries: SkyMediaQueryService) {
+  constructor(
+    private mediaQueries: SkyMediaQueryService
+  ) {
     this.querySubscription = this.mediaQueries.subscribe((newBreakpoint: SkyMediaBreakpoints) => {
       switch (newBreakpoint) {
         case SkyMediaBreakpoints.xs:

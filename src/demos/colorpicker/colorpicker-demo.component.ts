@@ -3,13 +3,13 @@ import {
 } from '@angular/core';
 
 import {
-  Subject
-} from 'rxjs/Subject';
-
-import {
   SkyColorpickerMessage,
   SkyColorpickerMessageType
-} from '../../core';
+} from '@skyux/colorpicker';
+
+import {
+  Subject
+} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-colorpicker-demo',

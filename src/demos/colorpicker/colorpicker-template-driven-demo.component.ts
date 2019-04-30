@@ -4,7 +4,7 @@ import {
 
 import {
   SkyColorpickerOutput
-} from '../../core';
+} from '@skyux/colorpicker';
 
 @Component({
   selector: 'sky-colorpicker-template-driven-demo',

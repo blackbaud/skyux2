@@ -13,7 +13,7 @@ import {
   SkyAutocompleteSearchFunctionFilter,
   SkyAutocompleteSearchFunctionResponse,
   SkyAutocompleteSelectionChange
-} from '../../core';
+} from '@skyux/lookup';
 
 @Component({
   selector: 'sky-autocomplete-demo',

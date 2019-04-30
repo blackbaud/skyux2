@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
   ErrorModalConfig,
   SkyErrorModalService
-} from '../../core';
+} from '@skyux/errors';
 
 @Component({
   selector: 'sky-error-demo',

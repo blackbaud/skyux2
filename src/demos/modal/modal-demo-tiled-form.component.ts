@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyModalInstance } from '../../core';
+import {
+  SkyModalInstance
+} from '@skyux/modals';
 
-import { SkyModalDemoContext } from './modal-demo-context';
+import {
+  SkyModalDemoContext
+} from './modal-demo-context';
 
 @Component({
   selector: 'sky-demo-modal-tiled-form',

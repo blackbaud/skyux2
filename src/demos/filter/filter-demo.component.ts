@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
-  SkyModalService,
-  SkyModalCloseArgs
-} from '../../core';
+  SkyModalCloseArgs,
+  SkyModalService
+} from '@skyux/modals';
 
-import { SkyFilterDemoModalComponent } from './filter-demo-modal.component';
-import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
+import {
+  SkyFilterDemoModalComponent
+} from './filter-demo-modal.component';
+
+import {
+  SkyFilterDemoModalContext
+} from './filter-demo-modal-context';
 
 @Component({
   selector: 'sky-filter-demo',
@@ -50,7 +57,9 @@ export class SkyFilterDemoComponent {
 
   public filteredItems: any[];
 
-  constructor(private modal: SkyModalService) {
+  constructor(
+    private modal: SkyModalService
+  ) {
     this.filteredItems = this.items.slice();
   }
 

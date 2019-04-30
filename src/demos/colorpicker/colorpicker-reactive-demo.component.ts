@@ -5,13 +5,13 @@ import {
 
 import {
   FormBuilder,
-  FormGroup,
-  FormControl
+  FormControl,
+  FormGroup
 } from '@angular/forms';
 
 import {
   SkyColorpickerOutput
-} from '../../core';
+} from '@skyux/colorpicker';
 
 @Component({
   selector: 'sky-colorpicker-reactive-demo',

@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkySectionedFormService } from '../../core';
+import {
+  SkySectionedFormService
+} from '@skyux/tabs';
 
 @Component({
   selector: 'sky-demo-information-form',
