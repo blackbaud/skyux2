@@ -10,7 +10,9 @@ import {
   SkyPopoverMessage
 } from '@skyux/popovers';
 
-import { Subject } from 'rxjs';
+import {
+  Subject
+} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-popover-demo',

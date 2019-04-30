@@ -3,13 +3,15 @@ import {
   Component
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
-
 import {
   SkyDropdownMessage,
   SkyDropdownMessageType,
   SkyDropdownMenuChange
 } from '@skyux/popovers';
+
+import {
+  Subject
+} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-dropdown-demo',

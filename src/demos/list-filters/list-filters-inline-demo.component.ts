@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import {
+  Component
+} from '@angular/core';
 
 import {
   ListItemModel
-} from '../../core';
+} from '@skyux/list-builder-common';
+
+import {
+  Observable
+} from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
 
 @Component({
   selector: 'sky-list-filters-inline-demo',

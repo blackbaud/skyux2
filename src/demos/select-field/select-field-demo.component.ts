@@ -1,7 +1,7 @@
 import {
+  ChangeDetectionStrategy,
   Component,
-  OnInit,
-  ChangeDetectionStrategy
+  OnInit
 } from '@angular/core';
 
 import {
@@ -10,8 +10,12 @@ import {
   FormControl
 } from '@angular/forms';
 
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
+
 import 'rxjs/add/observable/of';
+
 import 'rxjs/add/operator/take';
 
 @Component({

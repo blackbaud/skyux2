@@ -1,14 +1,29 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {
+  Component
+} from '@angular/core';
+
+import {
+  ListFilterModel
+} from '@skyux/list-builder';
 
 import {
   SkyModalService,
-  SkyModalCloseArgs,
-  ListFilterModel
-} from '../../core';
+  SkyModalCloseArgs
+} from '@skyux/modals';
 
-import { SkyListFiltersModalDemoComponent } from './list-filters-demo-modal.component';
-import { SkyListFiltersModalDemoContext } from './list-filters-demo-modal-context';
+import {
+  Observable
+} from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
+
+import {
+  SkyListFiltersModalDemoComponent
+} from './list-filters-demo-modal.component';
+
+import {
+  SkyListFiltersModalDemoContext
+} from './list-filters-demo-modal-context';
 
 @Component({
   selector: 'sky-list-filters-demo',

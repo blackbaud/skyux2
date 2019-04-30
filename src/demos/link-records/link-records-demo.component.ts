@@ -1,13 +1,19 @@
-import { Component, ViewChild } from '@angular/core';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/take';
+import {
+  Component,
+  ViewChild
+} from '@angular/core';
 
 import {
   SKY_LINK_RECORDS_STATUSES,
   SkyLinkRecordsComponent,
   SkyLinkRecordsMatchModel
 } from '@skyux/link-records';
+
+import {
+  Observable
+} from 'rxjs/Observable';
+
+import 'rxjs/add/operator/take';
 
 const getWindow = () => {
   return window;

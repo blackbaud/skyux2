@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyModalInstance } from '@skyux/modals';
+import {
+  SkyModalInstance
+} from '@skyux/modals';
 
-import { SkyFilterDemoModalContext } from './filter-demo-modal-context';
+import {
+  SkyFilterDemoModalContext
+} from './filter-demo-modal-context';
 
 @Component({
   selector: 'sky-demo-filter-modal-form',

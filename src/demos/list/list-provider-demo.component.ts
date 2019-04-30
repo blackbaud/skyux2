@@ -3,20 +3,31 @@ import {
   Injectable
 } from '@angular/core';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/map';
+import {
+  ListItemModel
+} from '@skyux/list-builder-common';
 
 import {
   ListDataProvider,
   ListDataRequestModel,
-  ListDataResponseModel,
-  ListItemModel
-} from '@skyux/lists';
+  ListDataResponseModel
+} from '@skyux/list-builder';
+
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
+
+import {
+  Observable
+} from 'rxjs/Observable';
+
+import 'rxjs/add/observable/of';
+
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DemoListProvider extends ListDataProvider {
+
   public items: Observable<ListItemModel[]>;
   public remoteCount: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 

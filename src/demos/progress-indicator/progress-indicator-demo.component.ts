@@ -5,8 +5,9 @@ import {
 } from '@angular/core';
 
 import {
-  Subject
-} from 'rxjs';
+  SkyModalService,
+  SkyModalCloseArgs
+} from '@skyux/modals';
 
 import {
   SkyProgressIndicatorChange,
@@ -14,16 +15,18 @@ import {
 } from '@skyux/progress-indicator';
 
 import {
-  SkyModalService,
-  SkyModalCloseArgs
-} from '@skyux/modals';
+  Subject
+} from 'rxjs/Subject';
+
+import 'rxjs/add/operator/take';
+
+import {
+  SkyProgressIndicatorDemoContext
+} from './progress-indicator-demo-context';
 
 import {
   SkyProgressIndicatorDemoFormComponent
 } from './progress-indicator-demo-form.component';
-import {
-  SkyProgressIndicatorDemoContext
-} from './progress-indicator-demo-context';
 
 @Component({
   selector: 'sky-progress-indicator-demo',

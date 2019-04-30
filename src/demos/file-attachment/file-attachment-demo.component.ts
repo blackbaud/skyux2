@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
-  SkyFileItem,
   SkyFileDropChange,
+  SkyFileItem,
   SkyFileLink
-} from '../../core';
+} from '@skyux/forms';
 
 @Component({
   selector: 'sky-file-attachment-demo',

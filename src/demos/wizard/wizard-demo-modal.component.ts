@@ -1,6 +1,6 @@
 import {
-  Component,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Component
 } from '@angular/core';
 
 import {

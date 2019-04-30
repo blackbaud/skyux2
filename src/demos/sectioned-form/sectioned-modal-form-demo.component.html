@@ -3,7 +3,7 @@
       Sectioned form — Index: {{ activeIndexDisplay }}
   </sky-modal-header>
   <sky-modal-content>
-    <sky-sectioned-form (indexChanged)="updateIndex($event)">
+    <sky-sectioned-form (indexChanged)="onIndexChanged($event)">
       <sky-sectioned-form-section heading="Basic information">
         <sky-demo-information-form>
         </sky-demo-information-form>
@@ -41,4 +41,3 @@
     </button>
   </sky-modal-footer>
   </sky-modal>
-  

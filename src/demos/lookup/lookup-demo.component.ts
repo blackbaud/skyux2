@@ -11,7 +11,7 @@ import {
 
 import {
   SkyAutocompleteSearchFunctionFilter
-} from '../../core';
+} from '@skyux/lookup';
 
 @Component({
   selector: 'sky-lookup-demo',

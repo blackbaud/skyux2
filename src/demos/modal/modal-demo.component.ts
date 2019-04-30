@@ -1,20 +1,32 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
   SkyModalService,
   SkyModalCloseArgs
 } from '@skyux/modals';
 
-import { SkyModalDemoContext } from './modal-demo-context';
-import { SkyModalDemoFormComponent } from './modal-demo-form.component';
-import { SkyModalDemoTiledFormComponent } from './modal-demo-tiled-form.component';
+import {
+  SkyModalDemoContext
+} from './modal-demo-context';
+
+import {
+  SkyModalDemoFormComponent
+} from './modal-demo-form.component';
+
+import {
+  SkyModalDemoTiledFormComponent
+} from './modal-demo-tiled-form.component';
 
 @Component({
   selector: 'sky-modal-demo',
   templateUrl: './modal-demo.component.html'
 })
 export class SkyModalDemoComponent {
-  constructor(private modal: SkyModalService) { }
+  constructor(
+    private modal: SkyModalService
+  ) { }
 
   public openModal(type: string) {
     const context = new SkyModalDemoContext();

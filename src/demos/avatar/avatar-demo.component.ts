@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
-import { SkyFileItem } from '../../core';
+import {
+  SkyFileItem
+} from '@skyux/forms';
 
 @Component({
   selector: 'sky-avatar-demo',
