@@ -1,16 +1,9 @@
 import {
-  CurrencyPipe
-} from '@angular/common';
-
-import {
   Component
 } from '@angular/core';
 
 @Component({
   selector: 'sky-numeric-demo',
-  templateUrl: './numeric-demo.component.html',
-  providers: [
-    CurrencyPipe
-  ]
+  templateUrl: './numeric-demo.component.html'
 })
 export class SkyNumericDemoComponent { }

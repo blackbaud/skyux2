@@ -1,3 +1,20 @@
+# 2.48.3 (2019-04-26)
+
+- Fixed flyout component to remain open when users click internal components. [blackbaud/skyux-flyout#30](https://github.com/blackbaud/skyux-flyout/pull/30)
+- Fixed modal component to handle click events that originate within its contents. [blackbaud/skyux-modals#40](https://github.com/blackbaud/skyux-modals/pull/40)
+- Fixed toast component to handle click events that originate within its contents. [blackbaud/skyux-toast#18](https://github.com/blackbaud/skyux-toast/pull/18)
+
+
+# 2.48.2 (2019-04-25)
+
+- Fixed date range picker component to run validation after users select dates with date picker. [blackbaud/skyux-datetime#34](https://github.com/blackbaud/skyux-datetime/pull/34)
+
+# 2.48.1 (2019-04-24)
+
+- Fixed modal component to prevent clicks from propagating. [blackbaud/skyux-modals#35](https://github.com/blackbaud/skyux-modals/pull/35)
+- Fixed toast component to prevent clicks from propagating. [blackbaud/skyux-toast#16](https://github.com/blackbaud/skyux-toast/pull/16)
+- Fixed tabset component to prevent throwing `ViewDestroyedError`s in modals. [blackbaud/skyux-tabs#21](https://github.com/blackbaud/skyux-tabs/pull/21)
+
 # 2.48.0 (2019-04-18)
 
 - Added missing RxJS imports to flyout component to prevent compilation errors in consuming applications. [blackbaud/skyux-flyout#27](https://github.com/blackbaud/skyux-flyout/pull/27)  (Thanks @Blackbaud-KevinHutson)
