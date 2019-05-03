@@ -2,7 +2,7 @@
 
 - Added mixins for responsive designs. [blackbaud/skyux-theme#58](https://github.com/blackbaud/skyux-theme/pull/58)
 - Fixed date range picker component to properly represent Angular form control statuses (`dirty`, `pristine`, etc.). [blackbaud/skyux-datetime#44](https://github.com/blackbaud/skyux-datetime/pull/44)
-- Fixed date range picker component to properly use default calculators when `calculatorIds` is set to falsy value. [blackbaud/skyux-datetime#43](https://github.com/blackbaud/skyux-datetime/pull/43)
+- Fixed date range picker component to properly use default calculators when `calculatorIds` value is set to falsy. [blackbaud/skyux-datetime#43](https://github.com/blackbaud/skyux-datetime/pull/43)
 - Fixed datepicker calendar component to default to Sunday as starting day. [blackbaud/skyux-datetime#41](https://github.com/blackbaud/skyux-datetime/pull/41)
 - Fixed radio group component to properly update ngModel when initial value is undefined. [blackbaud/skyux-forms#37](https://github.com/blackbaud/skyux-forms/pull/37)
 - Fixed spacing for radio button and checkbox labels. [blackbaud/skyux-theme#62](https://github.com/blackbaud/skyux-theme/pull/62)
