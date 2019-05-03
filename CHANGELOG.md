@@ -5,7 +5,7 @@
 - Fixed date range picker component to properly use default calculators when `calculatorIds` value is set to falsy. [blackbaud/skyux-datetime#43](https://github.com/blackbaud/skyux-datetime/pull/43)
 - Fixed datepicker calendar component to default to Sunday as starting day. [blackbaud/skyux-datetime#41](https://github.com/blackbaud/skyux-datetime/pull/41)
 - Fixed radio group component to properly update ngModel when initial value is undefined. [blackbaud/skyux-forms#37](https://github.com/blackbaud/skyux-forms/pull/37)
-- Fixed spacing for radio button and checkbox labels. [blackbaud/skyux-theme#62](https://github.com/blackbaud/skyux-theme/pull/62)
+- Fixed spacing for radio button and checkbox labels. [blackbaud/skyux-theme#62](https://github.com/blackbaud/skyux-theme/pull/62) 
 - Fixed vertical tabset component to correctly translate resource strings. [blackbaud/skyux-tabs#24](https://github.com/blackbaud/skyux-tabs/pull/24)
 
 # 2.48.3 (2019-04-26)
