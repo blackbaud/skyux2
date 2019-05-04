@@ -1,3 +1,13 @@
+# 2.49.0 (2019-05-03)
+
+- Added mixins for responsive designs. [blackbaud/skyux-theme#58](https://github.com/blackbaud/skyux-theme/pull/58)
+- Fixed date range picker component to properly represent Angular form control statuses (`dirty`, `pristine`, etc.). [blackbaud/skyux-datetime#44](https://github.com/blackbaud/skyux-datetime/pull/44)
+- Fixed date range picker component to properly use default calculators when `calculatorIds` value is set to falsy. [blackbaud/skyux-datetime#43](https://github.com/blackbaud/skyux-datetime/pull/43)
+- Fixed datepicker calendar component to default to Sunday as starting day. [blackbaud/skyux-datetime#41](https://github.com/blackbaud/skyux-datetime/pull/41)
+- Fixed radio group component to properly update ngModel when initial value is undefined. [blackbaud/skyux-forms#37](https://github.com/blackbaud/skyux-forms/pull/37)
+- Fixed spacing for radio button and checkbox labels. [blackbaud/skyux-theme#62](https://github.com/blackbaud/skyux-theme/pull/62) 
+- Fixed vertical tabset component to correctly translate resource strings. [blackbaud/skyux-tabs#24](https://github.com/blackbaud/skyux-tabs/pull/24)
+
 # 2.48.3 (2019-04-26)
 
 - Fixed flyout component to remain open when users click internal components. [blackbaud/skyux-flyout#30](https://github.com/blackbaud/skyux-flyout/pull/30)
