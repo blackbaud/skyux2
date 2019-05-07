@@ -1,3 +1,8 @@
+# 2.49.1 (2019-05-06)
+
+- Fixed repeater item component to allow custom inline form buttons. [blackbaud/skyux-lists#37](https://github.com/blackbaud/skyux-lists/pull/37)
+- Fixed `SkyNumericPipe` to include proper locale data when used with Angular version 5 and higher. [blackbaud/skyux-core#74](https://github.com/blackbaud/skyux-core/pull/74)
+
 # 2.49.0 (2019-05-03)
 
 - Added mixins for responsive designs. [blackbaud/skyux-theme#58](https://github.com/blackbaud/skyux-theme/pull/58)
