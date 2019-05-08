@@ -1,11 +1,10 @@
 import {
-  Component,
-  AfterContentChecked
+  Component
 } from '@angular/core';
 
 import {
-  SkyModalService,
-  SkyModalCloseArgs
+  SkyModalCloseArgs,
+  SkyModalService
 } from '@skyux/modals';
 
 import {
@@ -16,13 +15,14 @@ import {
   selector: 'sky-sectioned-form-demo',
   templateUrl: './sectioned-form-demo.component.html'
 })
-export class SkySectionedFormDemoComponent implements AfterContentChecked {
+export class SkySectionedFormDemoComponent {
   public activeIndexDisplay: number;
-  private _activeIndex: number;
 
-  constructor(private modal: SkyModalService) { }
+  constructor(
+    private modal: SkyModalService
+  ) { }
 
-  public openModal() {
+  public openModal(): void {
     let modalInstance = this.modal.open(SkySectionedModalFormDemoComponent);
 
     modalInstance.closed.subscribe((result: SkyModalCloseArgs) => {
@@ -34,11 +34,7 @@ export class SkySectionedFormDemoComponent implements AfterContentChecked {
     });
   }
 
-  public ngAfterContentChecked() {
-    this.activeIndexDisplay = this._activeIndex;
-  }
-
-  public updateIndex(newIndex: number) {
-    this._activeIndex = newIndex;
+  public onIndexChanged(newIndex: number): void {
+    this.activeIndexDisplay = newIndex;
   }
 }

@@ -3,14 +3,16 @@ import {
   OnDestroy
 } from '@angular/core';
 
-import { Subject } from 'rxjs/Subject';
-
 import {
   SkyToken,
   SkyTokenSelectedEventArgs,
   SkyTokensMessageType,
   SkyTokensMessage
 } from '@skyux/indicators';
+
+import {
+  Subject
+} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-tokens-demo',

@@ -5,12 +5,12 @@
 </h2>
 
 <div style="max-width: 50%">
-  <sky-datepicker #picker>
+  <sky-datepicker>
     <input
-      [(ngModel)]="selectedDate"
-      [skyDatepickerInput]="picker"
-      [minDate]="minDate"
+      skyDatepickerInput
       [maxDate]="maxDate"
+      [minDate]="minDate"
+      [(ngModel)]="selectedDate"
       #date="ngModel"
     />
   </sky-datepicker>
@@ -47,12 +47,12 @@
   style="max-width: 50%"
   [formGroup]="reactiveForm"
 >
-  <sky-datepicker #reactivePicker>
+  <sky-datepicker>
     <input
       formControlName="selectedDate"
-      [minDate]="minDate"
+      skyDatepickerInput
       [maxDate]="maxDate"
-      [skyDatepickerInput]="reactivePicker"
+      [minDate]="minDate"
     />
   </sky-datepicker>
 </form>

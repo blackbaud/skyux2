@@ -1,7 +1,6 @@
 import {
   Component,
-  ViewChild,
-  AfterContentChecked
+  ViewChild
 } from '@angular/core';
 
 import {
@@ -16,7 +15,7 @@ import {
   selector: 'sky-sectioned-modal-form-demo',
   templateUrl: './sectioned-modal-form-demo.component.html'
 })
-export class SkySectionedModalFormDemoComponent implements AfterContentChecked {
+export class SkySectionedModalFormDemoComponent {
 
   @ViewChild(SkySectionedFormComponent)
   public sectionedFormComponent: SkySectionedFormComponent;
@@ -24,16 +23,12 @@ export class SkySectionedModalFormDemoComponent implements AfterContentChecked {
   public activeIndexDisplay: number = undefined;
   public activeTab = true;
 
-  private _activeIndex: number = undefined;
+  constructor(
+    public instance: SkyModalInstance
+  ) { }
 
-  constructor(public instance: SkyModalInstance) {}
-
-  public ngAfterContentChecked() {
-    this.activeIndexDisplay = this._activeIndex;
-  }
-
-  public updateIndex(newIndex: number) {
-    this._activeIndex = newIndex;
+  public onIndexChanged(newIndex: number) {
+    this.activeIndexDisplay = newIndex;
   }
 
   public tabsHidden() {

@@ -1,7 +1,18 @@
-import { Component } from '@angular/core';
-import { SkyTileDashboardConfig } from '../../core';
-import { SkyTileDemoTile1Component } from './tile-demo-tile1.component';
-import { SkyTileDemoTile2Component } from './tile-demo-tile2.component';
+import {
+  Component
+} from '@angular/core';
+
+import {
+  SkyTileDashboardConfig
+} from '@skyux/tiles';
+
+import {
+  SkyTileDemoTile1Component
+} from './tile-demo-tile1.component';
+
+import {
+  SkyTileDemoTile2Component
+} from './tile-demo-tile2.component';
 
 @Component({
   selector: 'sky-tile-demo',

@@ -4,21 +4,21 @@ import {
 } from '@angular/core';
 
 import {
-  BehaviorSubject
-} from 'rxjs/BehaviorSubject';
-
-import {
-  Subject
-} from 'rxjs';
-
-import {
   SkyGridMessage,
   SkyGridSelectedRowsModelChange
 } from '@skyux/grids';
 
 import {
   ListSortFieldSelectorModel
-} from '../../core';
+} from '@skyux/list-builder-common';
+
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
+
+import {
+  Subject
+} from 'rxjs/Subject';
 
 @Component({
   selector: 'sky-grid-demo',

@@ -1,8 +1,25 @@
-
 import {
   Component,
   ViewChild
 } from '@angular/core';
+
+import {
+  SkyFlyoutConfig,
+  SkyFlyoutInstance,
+  SkyFlyoutService
+} from '@skyux/flyout';
+
+import {
+  ListItemModel
+} from '@skyux/list-builder-common';
+
+import {
+  SkyListViewGridComponent
+} from '@skyux/list-builder-view-grids';
+
+import {
+  Subject
+} from 'rxjs/Subject';
 
 import {
   Observable
@@ -11,30 +28,12 @@ import {
 import 'rxjs/add/observable/of';
 
 import {
-  Subject
-} from 'rxjs';
-
-import {
-  SkyFlyoutInstance,
-  SkyFlyoutService,
-  SkyFlyoutConfig
-} from '@skyux/flyout';
-
-import {
   FlyoutDemoContext
 } from './flyout-demo-context';
 
 import {
   SkyFlyoutDemoInternalComponent
 } from './flyout-demo-internal.component';
-
-import {
-  SkyListViewGridComponent
-} from '@skyux/list-builder-view-grids';
-
-import {
-  ListItemModel
-} from '@skyux/list-builder-common';
 
 import {
   SkyFlyoutDemoInternalSimpleComponent

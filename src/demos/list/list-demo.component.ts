@@ -1,5 +1,10 @@
-import { Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {
+  Component
+} from '@angular/core';
+
+import {
+  BehaviorSubject
+} from 'rxjs/BehaviorSubject';
 
 @Component({
   selector: 'sky-list-demo',

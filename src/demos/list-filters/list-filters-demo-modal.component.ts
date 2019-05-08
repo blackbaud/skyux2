@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import {
+  Component
+} from '@angular/core';
 
 import {
-  SkyModalInstance,
-  ListFilterModel,
   ListItemModel
-} from '../../core';
+} from '@skyux/list-builder-common';
+
+import {
+  ListFilterModel
+} from '@skyux/list-builder';
+
+import {
+  SkyModalInstance
+} from '@skyux/modals';
 
 import {
   SkyListFiltersModalDemoContext
@@ -22,7 +30,10 @@ export class SkyListFiltersModalDemoComponent {
 
   public headerText: string = 'Filters';
 
-  constructor(public context: SkyListFiltersModalDemoContext, public instance: SkyModalInstance) {
+  constructor(
+    public context: SkyListFiltersModalDemoContext,
+    public instance: SkyModalInstance
+  ) {
     if (this.context && this.context.appliedFilters && this.context.appliedFilters.length > 0) {
       this.setFormFilters(this.context.appliedFilters);
     } else {

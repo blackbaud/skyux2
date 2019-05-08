@@ -2,7 +2,9 @@ import {
   Component
 } from '@angular/core';
 
-import { FlyoutDemoContext } from './flyout-demo-context';
+import {
+  FlyoutDemoContext
+} from './flyout-demo-context';
 
 @Component({
   selector: 'sky-flyout-demo-internal',
