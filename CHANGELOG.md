@@ -1,3 +1,7 @@
+# 2.49.2 (2019-05-09)
+
+- Fixed grid component to no longer resize table width when `selectedColumnIds` changes. [blackbaud/skyux-grids#54](https://github.com/blackbaud/skyux-grids/pull/54)
+
 # 2.49.1 (2019-05-06)
 
 - Fixed repeater item component to allow custom inline form buttons. [blackbaud/skyux-lists#37](https://github.com/blackbaud/skyux-lists/pull/37)
