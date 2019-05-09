@@ -1,0 +1,22 @@
+<sky-modal>
+  <sky-modal-header>
+    {{title}}
+  </sky-modal-header>
+  <sky-modal-content>
+    <sky-checkbox
+      [(ngModel)]="hasUnsavedWork"
+    >
+      <sky-checkbox-label>
+        Is there unsaved work?
+      </sky-checkbox-label>
+    </sky-checkbox>
+  </sky-modal-content>
+  <sky-modal-footer>
+    <button
+      type="button"
+      class="sky-btn sky-btn-primary"
+      (click)="instance.save('Something cool')">
+      Close
+    </button>
+  </sky-modal-footer>
+</sky-modal>
