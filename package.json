@@ -1,6 +1,6 @@
 {
   "name": "@blackbaud/skyux",
-  "version": "2.49.1",
+  "version": "2.49.2",
   "description": "SKY UX built on Angular 4",
   "author": "Blackbaud, Inc.",
   "homepage": "https://github.com/blackbaud/skyux2",
@@ -48,7 +48,7 @@
     "@skyux/errors": "3.0.0",
     "@skyux/flyout": "3.0.3",
     "@skyux/forms": "3.1.2",
-    "@skyux/grids": "3.1.4",
+    "@skyux/grids": "3.1.5",
     "@skyux/indicators": "3.0.3",
     "@skyux/inline-form": "3.0.0",
     "@skyux/layout": "3.1.1",
