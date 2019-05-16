@@ -88,6 +88,7 @@ import {
   // Entry components
   SkyFilterDemoModalComponent,
   SkyListFiltersModalDemoComponent,
+  SkyModalDemoCloseConfirmationComponent,
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkyProgressIndicatorDemoFormComponent,
@@ -175,6 +176,7 @@ const components = [
   SkyWizardDemoComponent,
   SkyFilterDemoModalComponent,
   SkyListFiltersModalDemoComponent,
+  SkyModalDemoCloseConfirmationComponent,
   SkyModalDemoFormComponent,
   SkyModalDemoTiledFormComponent,
   SkyProgressIndicatorDemoFormComponent,
