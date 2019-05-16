@@ -30,7 +30,7 @@ export class SkyModalDemoCloseConfirmationComponent {
     });
   }
 
-  public onClose(closeHandler: SkyModalBeforeCloseHandler) {
+  public onClose(closeHandler: SkyModalBeforeCloseHandler): void {
     if (this.hasUnsavedWork) {
       this.confirmService.open({
         message: 'You have unsaved work. Are you sure you want to close this dialog?',

@@ -28,11 +28,12 @@ import {
   templateUrl: './modal-demo.component.html'
 })
 export class SkyModalDemoComponent {
+
   constructor(
     private modal: SkyModalService
   ) { }
 
-  public openModal(type: string) {
+  public openModal(type: string): void {
     const context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
