@@ -20,19 +20,19 @@ import {
 export class SkyDropdownDemoComponent {
   public dropdownController = new Subject<SkyDropdownMessage>();
   public items: any[] = [
-    { name: 'Option 1', disabled: false },
-    { name: 'Option 2', disabled: true },
-    { name: 'Option 3', disabled: false },
-    { name: 'Option 4', disabled: false },
-    { name: 'Option 5', disabled: false }
+    { name: 'Action 1', disabled: false },
+    { name: 'Action 2', disabled: true },
+    { name: 'Action 3', disabled: false },
+    { name: 'Action 4', disabled: false },
+    { name: 'Action 5', disabled: false }
   ];
 
   constructor(
     private changeDetector: ChangeDetectorRef
   ) { }
 
-  public optionClicked(option: number) {
-    alert('You selected option ' + option);
+  public actionClicked(action: string) {
+    alert('You selected ' + action);
   }
 
   public openDropdown() {
