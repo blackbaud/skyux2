@@ -1,7 +1,6 @@
 # 2.51.0 (2019-05-29)
 
-- Added the ability to trigger responsive styles based on a parent component for components in the following repos:
-  - `skyux-lookup` [blackbaud/skyux-link-records#9](https://github.com/blackbaud/skyux-link-records/pull/9)
+- Added the ability to trigger responsive styles based on a parent component for components in the `skyux-lookup` repo. [blackbaud/skyux-link-records#9](https://github.com/blackbaud/skyux-link-records/pull/9)
 - Added support for `@blackbaud/skyux-design-tokens@0.0.12`, which includes a new SCSS variable for page background color. [blackbaud/skyux-theme#69](https://github.com/blackbaud/skyux-theme/pull/69)
 - Updated UI text and messages for the link records component. [blackbaud/skyux-link-records#7](https://github.com/blackbaud/skyux-link-records/pull/7)
 - Fixed the datepicker and timepicker components to use the correct active button visual styles. [blackbaud/skyux-datetime#52](https://github.com/blackbaud/skyux-datetime/pull/52)
