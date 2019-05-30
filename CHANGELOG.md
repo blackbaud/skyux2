@@ -1,4 +1,4 @@
-# 2.51.0 (2019-05-29)
+# 2.51.0 (2019-05-30)
 
 - Added the ability to trigger responsive styles based on a parent component for components in the `skyux-link-records` repo. [blackbaud/skyux-link-records#9](https://github.com/blackbaud/skyux-link-records/pull/9)
 - Added support for `@blackbaud/skyux-design-tokens@0.0.12`, which includes a new SCSS variable for page background color. [blackbaud/skyux-theme#69](https://github.com/blackbaud/skyux-theme/pull/69)
