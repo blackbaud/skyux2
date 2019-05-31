@@ -1,3 +1,7 @@
+# 2.51.1 (2019-05-31)
+
+- Fixed the list view checklist component to add space between checkboxes and the right-hand side of the checklist. [blackbaud/skyux-list-builder-view-checklist#32](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/32)
+
 # 2.51.0 (2019-05-30)
 
 - Added the ability to trigger responsive styles based on a parent component for components in the `skyux-link-records` repo. [blackbaud/skyux-link-records#9](https://github.com/blackbaud/skyux-link-records/pull/9)
