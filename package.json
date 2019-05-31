@@ -54,7 +54,7 @@
     "@skyux/layout": "3.2.1",
     "@skyux/link-records": "3.1.0",
     "@skyux/list-builder-common": "3.0.0",
-    "@skyux/list-builder-view-checklist": "3.1.2",
+    "@skyux/list-builder-view-checklist": "3.1.3",
     "@skyux/list-builder-view-grids": "3.3.0",
     "@skyux/list-builder": "3.2.4",
     "@skyux/lists": "3.2.2",
