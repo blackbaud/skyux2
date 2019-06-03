@@ -1,3 +1,41 @@
+# 2.51.1 (2019-05-31)
+
+- Fixed the list view checklist component to add space between checkboxes and the right-hand side of the checklist. [blackbaud/skyux-list-builder-view-checklist#32](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/32)
+
+# 2.51.0 (2019-05-30)
+
+- Added the ability to trigger responsive styles based on a parent component for components in the `skyux-link-records` repo. [blackbaud/skyux-link-records#9](https://github.com/blackbaud/skyux-link-records/pull/9)
+- Added support for `@blackbaud/skyux-design-tokens@0.0.12`, which includes a new SCSS variable for page background color. [blackbaud/skyux-theme#69](https://github.com/blackbaud/skyux-theme/pull/69)
+- Updated UI text and messages for the link records component. [blackbaud/skyux-link-records#7](https://github.com/blackbaud/skyux-link-records/pull/7)
+- Fixed the datepicker and timepicker components to use the correct active button visual styles. [blackbaud/skyux-datetime#52](https://github.com/blackbaud/skyux-datetime/pull/52)
+- Fixed the checkbox component to have proper Angular form control states when it is initialized. [blackbaud/skyux-forms#41](https://github.com/blackbaud/skyux-forms/pull/41)
+- Fixed the checkbox and radio button components to not have extra spacing when a label is not specified. [blackbaud/skyux-forms#42](https://github.com/blackbaud/skyux-forms/pull/42)
+- Fixed the grid column component to properly support resizing on touch devices. [blackbaud/skyux-grids#57](https://github.com/blackbaud/skyux-grids/pull/57)
+- Fixed the text expand component to correct the spacing before the "See more" and "See less" buttons. [blackbaud/skyux-layout#38](https://github.com/blackbaud/skyux-layout/pull/38)
+- Fixed the text expand repeater component to not place focus on the whitespace around the "See more" and "See less" buttons. [blackbaud/skyux-layout#38](https://github.com/blackbaud/skyux-layout/pull/38)
+- Fixed the list toolbar component to properly display items when they are dynamically shown or hidden. [blackbaud/skyux-list-builder#45](https://github.com/blackbaud/skyux-list-builder/pull/45)
+- Fixed the search component to use the correct visual styles when focused. [blackbaud/skyux-lookup#27](https://github.com/blackbaud/skyux-lookup/pull/27)
+- Fixed the toast service to not error when attempting to close all toasts while no toasts are open. [blackbaud/skyux-toast#21](https://github.com/blackbaud/skyux-toast/pull/21) (Thanks @Blackbaud-ChristiSchneider)
+
+# 2.50.0 (2019-05-17)
+
+- Added the ability to trigger responsive styles based on a parent component for components in the following repos:
+  - `skyux-tabs` [blackbaud/skyux-tabs#25](https://github.com/blackbaud/skyux-tabs/pull/25)
+  - `skyux-tiles` [blackbaud/skyux-tiles#29](https://github.com/blackbaud/skyux-tiles/pull/29)
+  - `skyux-layout` [blackbaud/skyux-layout#32](https://github.com/blackbaud/skyux-layout/pull/32)
+- Added UI Config Service hooks to the list view grid component. [blackbaud/skyux-list-builder-view-grids#38](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/38)
+- Added the ability for the flyout component to trigger its child components' responsive styles. [blackbaud/skyux-flyout#31](https://github.com/blackbaud/skyux-flyout/pull/31)
+- Updated the progress indicator message stream to accept `SkyProgressIndicatorMessage` types. [blackbaud/skyux-progress-indicator#19](https://github.com/blackbaud/skyux-progress-indicator/pull/19)
+- Updated the progress indicator component. [blackbaud/skyux-progress-indicator#17](https://github.com/blackbaud/skyux-progress-indicator/pull/17)
+  - Added a finish button.
+  - Added the ability to go to a specific step.
+  - Fixed the disabled state for buttons to no longer be required.
+  - Fixed the component to properly reset the state of steps when navigating backward.
+- Fixed the date range picker component to not resize based on the selected calculator. [blackbaud/skyux-datetime#46](https://github.com/blackbaud/skyux-datetime/pull/46)
+- Fixed the datepicker input directive to allow it to be conditionally placed inside modals. [blackbaud/skyux-datetime#50](https://github.com/blackbaud/skyux-datetime/pull/50)
+- Fixed the autocomplete component to emit a `selectionChange` event when the input is cleared. [blackbaud/skyux-lookup#22](https://github.com/blackbaud/skyux-lookup/issues/22)
+- Fixed the autocomplete component to properly represent Angular form control statuses (dirty, pristine, etc.). [blackbaud/skyux-lookup#20](https://github.com/blackbaud/skyux-lookup/issues/20)
+
 # 2.49.2 (2019-05-09)
 
 - Fixed grid component to no longer resize table width when `selectedColumnIds` changes. [blackbaud/skyux-grids#54](https://github.com/blackbaud/skyux-grids/pull/54)

@@ -16,6 +16,10 @@ import {
 } from './modal-demo-form.component';
 
 import {
+  SkyModalDemoCloseConfirmationComponent
+} from './modal-demo-close-confirmation.component';
+
+import {
   SkyModalDemoTiledFormComponent
 } from './modal-demo-tiled-form.component';
 
@@ -24,11 +28,12 @@ import {
   templateUrl: './modal-demo.component.html'
 })
 export class SkyModalDemoComponent {
+
   constructor(
     private modal: SkyModalService
   ) { }
 
-  public openModal(type: string) {
+  public openModal(type: string): void {
     const context = new SkyModalDemoContext();
     context.valueA = 'Hello';
 
@@ -37,7 +42,7 @@ export class SkyModalDemoComponent {
       ariaDescribedBy: 'docs-modal-content'
     };
 
-    let modalInstanceType = SkyModalDemoFormComponent;
+    let modalInstanceType: any = SkyModalDemoFormComponent;
 
     switch (type) {
       case 'fullScreenModal':
@@ -54,6 +59,9 @@ export class SkyModalDemoComponent {
       break;
       case 'withHelpHeader':
       options.helpKey = 'demo-key.html';
+      break;
+      case 'withCloseConfirmation':
+      modalInstanceType = SkyModalDemoCloseConfirmationComponent;
       break;
       default:
       break;

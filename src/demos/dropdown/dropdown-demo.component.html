@@ -4,8 +4,12 @@
 </h3>
 
 <sky-row>
-  <sky-column screenSmall="6">
-    <ul class="sky-list-unstyled">
+  <sky-column
+    screenSmall="6"
+  >
+    <ul
+      class="sky-list-unstyled"
+    >
       <li>
         Default (select) style:
         <br>
@@ -15,7 +19,11 @@
           </sky-dropdown-button>
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -26,10 +34,15 @@
         Context menu style:
         <br>
         <sky-dropdown
-          buttonType="context-menu">
+          buttonType="context-menu"
+        >
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -40,10 +53,15 @@
         Icon style:
         <br>
         <sky-dropdown
-          buttonType="folder-open-o">
+          buttonType="folder-open-o"
+        >
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -52,20 +70,30 @@
       </li>
     </ul>
   </sky-column>
-  <sky-column screenSmall="6">
-    <ul class="sky-list-unstyled" style="text-align:right">
+  <sky-column
+    screenSmall="6"
+  >
+    <ul
+      class="sky-list-unstyled"
+      style="text-align:right"
+    >
       <li>
         Select primary style:
         <br>
         <sky-dropdown
           alignment="right"
-          buttonStyle="primary">
+          buttonStyle="primary"
+        >
           <sky-dropdown-button>
             Show dropdown
           </sky-dropdown-button>
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -78,10 +106,15 @@
         <sky-dropdown
           alignment="right"
           buttonType="context-menu"
-          buttonStyle="primary">
+          buttonStyle="primary"
+        >
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -94,10 +127,15 @@
         <sky-dropdown
           alignment="right"
           buttonType="folder-open-o"
-          buttonStyle="primary">
+          buttonStyle="primary"
+        >
           <sky-dropdown-menu>
             <sky-dropdown-item *ngFor="let item of items">
-              <button type="button" [attr.disabled]="item.disabled ? '' : null">
+              <button
+                type="button"
+                [attr.disabled]="item.disabled ? '' : null"
+                (click)="actionClicked(item.name)"
+              >
                 {{ item.name }}
               </button>
             </sky-dropdown-item>
@@ -116,57 +154,69 @@
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="openDropdown()">
+    (click)="openDropdown()"
+  >
     Open dropdown
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="closeDropdown()">
+    (click)="closeDropdown()"
+  >
     Close dropdown
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusTriggerButton()">
+    (click)="focusTriggerButton()"
+  >
     Focus trigger button
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusNextItem()">
+    (click)="focusNextItem()"
+  >
     Focus next item
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="focusPreviousItem()">
+    (click)="focusPreviousItem()"
+  >
     Focus previous item
   </button>
 
   <button
     type="button"
     class="sky-btn sky-btn-default"
-    (click)="changeItems()">
+    (click)="changeItems()"
+  >
     Change items
   </button>
 </p>
 <sky-dropdown
   buttonStyle="primary"
   [dismissOnBlur]="false"
-  [messageStream]="dropdownController">
+  [messageStream]="dropdownController"
+>
   <sky-dropdown-button>
     Open
   </sky-dropdown-button>
   <sky-dropdown-menu
     [useNativeFocus]="false"
-    (menuChanges)="onMenuChanges($event)">
+    (menuChanges)="onMenuChanges($event)"
+  >
     <sky-dropdown-item *ngFor="let item of items">
-      <button type="button" [attr.disabled]="item.disabled ? '' : null">
+      <button
+        type="button"
+        [attr.disabled]="item.disabled ? '' : null"
+        (click)="actionClicked(item.name)"
+      >
         {{ item.name }}
       </button>
     </sky-dropdown-item>
