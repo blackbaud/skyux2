@@ -1,3 +1,21 @@
+# 2.52.0 (2019-06-11)
+
+- Added the ability to trigger responsive styles based on a parent component for components in the following repos:
+  - `skyux-forms` [blackbaud/skyux-forms#35](https://github.com/blackbaud/skyux-forms/pull/35)
+  - `skyux-lists` [blackbaud/skyux-lists#35](https://github.com/blackbaud/skyux-lists/pull/35)
+  - `skyux-list-builder` [blackbaud/skyux-list-builder#43](https://github.com/blackbaud/skyux-list-builder/pull/43)
+  - `skyux-list-builder-view-grids` [blackbaud/skyux-list-builder-view-grids#37](https://github.com/blackbaud/skyux-list-builder-view-grids/pull/37)
+  - `skyux-lookup` [blackbaud/skyux-lookup#21](https://github.com/blackbaud/skyux-lookup/pull/21)
+- Fixed `SkyDatePipeModule` to properly provide `SkyDatePipe` and to import `SkyDateTimeResourcesModule`. [blackbaud/skyux-datetime#58](https://github.com/blackbaud/skyux-datetime/pull/58)
+- Fixed the flyout component to handle click events that originate within its contents. [blackbaud/skyux-flyout#44](https://github.com/blackbaud/skyux-flyout/pull/44)
+- Fixed the flyout component to style the resize handle and iterator buttons correctly in Internet Explorer. [blackbaud/skyux-flyout#45](https://github.com/blackbaud/skyux-flyout/pull/45)
+- Fixed the flyout component to limit its maximum width to 20 pixels less than the window's width. [blackbaud/skyux-flyout#46](https://github.com/blackbaud/skyux-flyout/pull/46)
+- Fixed the flyout component to set the default width to half of the window's width unless consumers specify a different default. [blackbaud/skyux-flyout#47](https://github.com/blackbaud/skyux-flyout/pull/47)
+- Fixed the flyout component to handle a default width that is less than the minimum width. [blackbaud/skyux-flyout#49](https://github.com/blackbaud/skyux-flyout/pull/49)
+- Fixed the flyout component to only use fullscreen visual styles when the minimum width can't fit inside the window. [blackbaud/skyux-flyout#50](https://github.com/blackbaud/skyux-flyout/pull/50)
+- Fixed the search component to trim whitespace when search text is entered. [blackbaud/skyux-lookup#31](https://github.com/blackbaud/skyux-lookup/pull/31) (Thanks @Blackbaud-JackMcElhinney)
+- Fixed the modal component to correct accessibility tab controls. [blackbaud/skyux-modals#46](https://github.com/blackbaud/skyux-modals/pull/46) (Thanks @Blackbaud-JackMcElhinney)
+
 # 2.51.1 (2019-05-31)
 
 - Fixed the list view checklist component to add space between checkboxes and the right-hand side of the checklist. [blackbaud/skyux-list-builder-view-checklist#32](https://github.com/blackbaud/skyux-list-builder-view-checklist/pull/32)
