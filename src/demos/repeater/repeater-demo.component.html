@@ -7,14 +7,14 @@
     [selectable]="selectable">
 
     <sky-repeater-item-title
-      ng-if="repeaterCtrl.showTitle">
+      *ngIf="repeaterCtrl.showTitle">
       <div class="pull-left">
         {{item.title}}
       </div>
       <div class="pull-right">
         <span
           class="label"
-          ng-class="repeaterCtrl.getStatusCls(item)">
+          [ngClass]="repeaterCtrl.getStatusCls(item)">
           {{item.status}}
         </span>
       </div>
