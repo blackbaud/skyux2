@@ -46,7 +46,7 @@
     "@skyux/core": "3.6.0",
     "@skyux/datetime": "3.2.6",
     "@skyux/errors": "3.0.0",
-    "@skyux/flyout": "3.1.2",
+    "@skyux/flyout": "3.2.0",
     "@skyux/forms": "3.2.0",
     "@skyux/grids": "3.1.7",
     "@skyux/indicators": "3.0.3",
