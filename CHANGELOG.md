@@ -1,4 +1,4 @@
-# 2.52.1 (2019-06-14)
+# 2.53.0 (2019-06-14)
 
 - Added `SkyCoreAdapterService` to provide helper functions for applying focus and setting CSS classes for responsive containers. [#81](https://github.com/blackbaud/skyux-core/pull/81)
 - Added the ability to use the UI Config Service to save flyout component widths. [#53](https://github.com/blackbaud/skyux-flyout/pull/53)
