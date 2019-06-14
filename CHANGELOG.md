@@ -1,10 +1,10 @@
 # 2.53.0 (2019-06-14)
 
-- Added `SkyCoreAdapterService` to provide helper functions for applying focus and setting CSS classes for responsive containers. [#81](https://github.com/blackbaud/skyux-core/pull/81)
-- Added the ability to use the UI Config Service to save flyout component widths. [#53](https://github.com/blackbaud/skyux-flyout/pull/53)
-- Fixed the flyout component to remain open while resizing when the mouse is outside of the flyout. [#52](https://github.com/blackbaud/skyux-flyout/pull/52)
-- Fixed the select field component to not lose focus after clearing a selection. [#26](https://github.com/blackbaud/skyux-select-field/pull/26) (Thanks @blackbaud-conorwright)
-- Fixed the grid component to gracefully ignore columns that no longer exist when the UI Config Service returns them. [#61](https://github.com/blackbaud/skyux-grids/pull/61)
+- Added `SkyCoreAdapterService` to provide helper functions for applying focus and setting CSS classes for responsive containers. [blackbaud/skyux-core#81](https://github.com/blackbaud/skyux-core/pull/81)
+- Added the ability to use the UI Config Service to save flyout component widths. [blackbaud/skyux-flyout#53](https://github.com/blackbaud/skyux-flyout/pull/53)
+- Fixed the flyout component to remain open while resizing when the mouse is outside of the flyout. [blackbaud/skyux-flyout#52](https://github.com/blackbaud/skyux-flyout/pull/52)
+- Fixed the select field component to not lose focus after clearing a selection. [blackbaud/skyux-select-field#26](https://github.com/blackbaud/skyux-select-field/pull/26) (Thanks @blackbaud-conorwright)
+- Fixed the grid component to gracefully ignore columns that no longer exist when the UI Config Service returns them. [blackbaud/skyux-grids#61](https://github.com/blackbaud/skyux-grids/pull/61)
 
 # 2.52.0 (2019-06-11)
 
