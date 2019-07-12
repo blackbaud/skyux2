@@ -3,7 +3,7 @@ import {
 } from '@angular/core';
 
 import {
-  ActivatedRoute
+  Router
 } from '@angular/router';
 
 @Component({
@@ -12,14 +12,14 @@ import {
 })
 export class NotFoundComponent {
 
-  public redirect = 'https://developer.blackbaud.com/skyux/';
+  public redirect = 'https://developer.blackbaud.com/skyux';
 
   public redirectInSeconds = 5;
 
   constructor(
-    route: ActivatedRoute
+    router: Router
   ) {
-    this.redirect = this.redirect + route.snapshot.url[0].path;
+    this.redirect = this.redirect + router.url;
     setTimeout(() => {
       location.href = this.redirect;
     }, this.redirectInSeconds * 1000);
