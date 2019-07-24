@@ -3,6 +3,7 @@
   fit="scroll"
   [data]="data"
   (sortFieldChange)="onSortChangeForGrid($event)">
+  <!--Each item requires an `id` and a property that maps to the `field` or `id` property of each column in the grid.-->
   <sky-grid-column
     id="name"
     field="name"
