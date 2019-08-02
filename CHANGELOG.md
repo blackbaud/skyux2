@@ -1,6 +1,6 @@
 # 2.54.0 (2019-08-02)
 
-- Added option to disable transparency slider on the colorpicker component. [blackbaud/skyux-colorpicker#20](https://github.com/blackbaud/skyux-colorpicker/pull/20) (Thanks [@jeffbdye](https://github.com/jeffbdye)!)
+- Added the option to disable transparency slider on the colorpicker component. [blackbaud/skyux-colorpicker#20](https://github.com/blackbaud/skyux-colorpicker/pull/20) (Thanks [@jeffbdye](https://github.com/jeffbdye)!)
 - Added the public method `detectInputValueChange()` to `SkyDatepickerInputDirective`, which manually updates the model value based on the text value of the input field. [blackbaud/skyux-datetime#72](https://github.com/blackbaud/skyux-datetime/pull/72)
 - Added the toggle switch component. [blackbaud/skyux-forms#54](https://github.com/blackbaud/skyux-forms/pull/54) (Thanks @[Blackbaud-JackMcElhinney](https://github.com/Blackbaud-JackMcElhinney)!)
 - Added `selectedRowIds` input property to programmatically select rows on the grid component. [blackbaud/skyux-grids#39](https://github.com/blackbaud/skyux-grids/pull/39)
@@ -10,7 +10,7 @@
 - Added an optional "New" button next to the select field picker's search bar. [blackbaud/skyux-select-field#30](https://github.com/blackbaud/skyux-select-field/pull/30) (Thanks [@blackbaud-vimal-kumar](https://github.com/blackbaud-vimal-kumar)!)
 - Added media queries to hide the "New" button text on small screens. [blackbaud/skyux-select-field#32](https://github.com/blackbaud/skyux-select-field/pull/32)
 - Added the `FormControl` validators `SkyValidators.email` and `SkyValidators.url`. [blackbaud/skyux-validation#12](https://github.com/blackbaud/skyux-validation/pull/12) Thanks [@Blackbaud-MatthewMiles](https://github.com/Blackbaud-MatthewMiles)!
-- Updated the list component to programmatically select rows when the `selectedIds` input property is used in conjunction with the list view grids component. [blackbaud/skyux-list-builder#57](https://github.com/blackbaud/skyux-list-builder/pull/57)
+- Updated the list component to programmatically select rows when the `selectedIds` input property is used in conjunction with the list view grid component. [blackbaud/skyux-list-builder#57](https://github.com/blackbaud/skyux-list-builder/pull/57)
 - Updated development dependencies to support `@skyux-sdk/builder@3.7.1`. [blackbaud/skyux-modals#51](https://github.com/blackbaud/skyux-modals/pull/51)
 - Fixed the colorpicker component button to properly display transparent colors. [blackbaud/skyux-colorpicker#15](https://github.com/blackbaud/skyux-colorpicker/pull/15)
 - Fixed `SkyMediaQueryService` to complete its observables when the consuming component is destroyed. [blackbaud/skyux-core#86](https://github.com/blackbaud/skyux-core/pull/86)
