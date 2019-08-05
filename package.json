@@ -10,13 +10,14 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && rollup -c rollup.demo.config.js && rollup -c rollup.demo.min.config.js && npm run clean:srctemp",
+    "build": "npm run clean:srctemp && node config/utils/stage-ts.js && cd .srctemp && ngc && cd ../ && npm run compile:sass && npm run copy:design-tokens && cd config/rollup && rollup -c rollup.config.js && rollup -c rollup.min.config.js && rollup -c rollup.demo.config.js && rollup -c rollup.demo.min.config.js && npm run copy:package-scripts && npm run clean:srctemp",
     "ci": "npm run lint && npm run test:ci",
     "clean": "rimraf -- dist",
     "clean:full": "npm cache clean && rimraf -- node_modules doc coverage dist .srctemp webdriver-screenshotslocal webdriver-screenshotslocal-diffs skyux-spa-visual-tests/node_modules/ skyux-spa-visual-tests/dist/",
     "clean:srctemp": "rimraf -- .srctemp",
     "compile:sass": "node config/utils/compile-sass.js",
     "copy:design-tokens": "node config/utils/copy-design-tokens.js",
+    "copy:package-scripts": "node config/utils/copy-package-scripts.js",
     "lint": "skyux lint",
     "ngc": "ngc",
     "node-sass": "node-sass",
@@ -30,6 +31,7 @@
     "test:visual": "cd skyux-spa-visual-tests && npm run build-visual && npm run test-visual:local",
     "test:visual:ci": "cd skyux-spa-visual-tests && npm run build-visual && npm run test-visual:ci",
     "test:visual:local-browserstack": "cd skyux-spa-visual-tests && npm run build-visual && npm run test-visual:local-browserstack",
+    "postinstall": "node postinstall.js",
     "postversion": "git push && git push --tags",
     "prebuild": "npm run clean",
     "pretest": "npm run lint",
