@@ -1,4 +1,4 @@
-# 2.54.0 (2019-08-02)
+# 2.54.0 (2019-08-05)
 
 - Added the option to disable transparency slider on the colorpicker component. [blackbaud/skyux-colorpicker#20](https://github.com/blackbaud/skyux-colorpicker/pull/20) (Thanks [@jeffbdye](https://github.com/jeffbdye)!)
 - Added the public method `detectInputValueChange()` to `SkyDatepickerInputDirective`, which manually updates the model value based on the text value of the input field. [blackbaud/skyux-datetime#72](https://github.com/blackbaud/skyux-datetime/pull/72)
