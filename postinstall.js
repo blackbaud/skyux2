@@ -3,7 +3,7 @@ const glob = require('glob');
 const logger = require('@blackbaud/skyux-logger');
 
 /**
- * Some of our SKY UX libraries were transpiled using TypeScript 3,
+ * Some of our SKY UX libraries were transpiled using TypeScript 3
  * which updates the metadata version number in the bundle.
  * Angular's AoT compiler fails if these numbers are mismatched
  * between libraries, so we must hijack the process to make sure
