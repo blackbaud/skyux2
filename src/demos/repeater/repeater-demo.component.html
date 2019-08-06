@@ -6,15 +6,14 @@
     [isExpanded]="item.expanded"
     [selectable]="selectable">
 
-    <sky-repeater-item-title
-      *ngIf="repeaterCtrl.showTitle">
+    <sky-repeater-item-title>
       <div class="pull-left">
         {{item.title}}
       </div>
       <div class="pull-right">
         <span
           class="label"
-          [ngClass]="repeaterCtrl.getStatusCls(item)">
+        >
           {{item.status}}
         </span>
       </div>
