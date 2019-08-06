@@ -23,7 +23,7 @@ function applyMetadataBackwardsCompatability() {
       return;
     }
 
-    logger.log(`Fixing metadata version for backwards compatibility: ${file}`);
+    logger.info(`Fixing metadata version for backwards compatibility: ${file}`);
 
     const updatedContents = contents.replace(regExp, '"version":3');
 
