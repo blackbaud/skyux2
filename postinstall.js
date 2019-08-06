@@ -2,7 +2,14 @@ const fs = require('fs-extra');
 const glob = require('glob');
 const logger = require('@blackbaud/skyux-logger');
 
-function metadataCompat() {
+/**
+ * Some of our SKY UX libraries were transpiled using TypeScript 3,
+ * which updates the metadata version number in the bundle.
+ * Angular's AoT compiler fails if these numbers are mismatched
+ * between libraries, so we must hijack the process to make sure
+ * the version numbers are all consistent.
+ */
+function applyMetadataBackwardsCompatability() {
 
   const files = glob.sync(
     'node_modules/@skyux/**/*.metadata.json'
@@ -26,4 +33,4 @@ function metadataCompat() {
   });
 }
 
-metadataCompat();
+applyMetadataBackwardsCompatability();
