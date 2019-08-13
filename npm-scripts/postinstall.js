@@ -1,6 +1,8 @@
+const logger = require('@blackbaud/skyux-logger');
+
 const fs = require('fs-extra');
 const glob = require('glob');
-const logger = require('@blackbaud/skyux-logger');
+const path = require('path');
 
 /**
  * Some of our SKY UX libraries were transpiled using TypeScript 3
@@ -11,9 +13,18 @@ const logger = require('@blackbaud/skyux-logger');
  */
 function applyMetadataBackwardsCompatability() {
 
+  const metadataPattern = '@skyux/**/*.metadata.json';
+
+  // The value of `process.cwd()` is different if you're running install
+  // during local development or as a consumer of `@blackbaud/skyux`.
+  const metadataPathLocal = path.resolve(process.cwd(), `node_modules/${metadataPattern}`);
+  const metadataPathConsumer = path.resolve(process.cwd(), '../../../', metadataPattern);
+
   const files = glob.sync(
-    `${__dirname}/../node_modules/@skyux/**/*.metadata.json`
-  );
+    metadataPathLocal
+  ).concat(glob.sync(
+    metadataPathConsumer
+  ));
 
   files.forEach((file) => {
     const contents = fs.readFileSync(file, 'utf8').toString();
