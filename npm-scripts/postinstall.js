@@ -12,7 +12,7 @@ const logger = require('@blackbaud/skyux-logger');
 function applyMetadataBackwardsCompatability() {
 
   const files = glob.sync(
-    'node_modules/@skyux/**/*.metadata.json'
+    `${__dirname}/../node_modules/@skyux/**/*.metadata.json`
   );
 
   files.forEach((file) => {
