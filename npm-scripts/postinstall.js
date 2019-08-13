@@ -17,13 +17,13 @@ function applyMetadataBackwardsCompatability() {
 
   // The value of `process.cwd()` is different if you're running install
   // during local development or as a consumer of `@blackbaud/skyux`.
-  const metadataPathLocal = path.resolve(process.cwd(), `node_modules/${metadataPattern}`);
-  const metadataPathConsumer = path.resolve(process.cwd(), '../../../', metadataPattern);
+  const metadataPatternLocal = path.resolve(process.cwd(), 'node_modules', metadataPattern);
+  const metadataPatternConsumer = path.resolve(process.cwd(), '../../../', metadataPattern);
 
   const files = glob.sync(
-    metadataPathLocal
+    metadataPatternLocal
   ).concat(glob.sync(
-    metadataPathConsumer
+    metadataPatternConsumer
   ));
 
   files.forEach((file) => {
