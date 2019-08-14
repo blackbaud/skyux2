@@ -13,6 +13,10 @@ const path = require('path');
  */
 function applyMetadataBackwardsCompatability() {
 
+  const logPrefix = '[@blackbaud/skyux]';
+
+  logger.info(`${logPrefix} Checking metadata files for backwards compatibility...`);
+
   const metadataPattern = '@skyux/**/*.metadata.json';
 
   // The value of `process.cwd()` is different if you're running install
@@ -37,21 +41,21 @@ function applyMetadataBackwardsCompatability() {
       return;
     }
 
-    logger.info(`Fixing metadata version for backwards compatibility: ${file}`);
-
     const updatedContents = contents.replace(regExp, '"version":3');
 
     fs.writeFileSync(file, updatedContents, {
       encoding: 'utf8'
     });
 
+    logger.info(`${logPrefix} Modified metadata version for: ${file}`);
+
     numModifiedFiles++;
   });
 
   if (numModifiedFiles > 0) {
-    logger.info(`\nSuccessfully modified ${numModifiedFiles} of ${numTotalFiles} metadata files for backwards compatibility.\n`);
+    logger.info(`\n${logPrefix} Successfully modified ${numModifiedFiles} of ${numTotalFiles} metadata files for backwards compatibility.\n`);
   } else {
-    logger.info(`No incompatible metadata files found (out of ${numTotalFiles} files total).\n`);
+    logger.info(`${logPrefix} No incompatible metadata files found (out of ${numTotalFiles}).\n`);
   }
 }
 
