@@ -1,6 +1,6 @@
 # 2.54.1 (2019-08-14)
 
-- Fixed all `@skyux` packages metadata files to be backwards compatible with TypeScript 2. [#2375](https://github.com/blackbaud/skyux2/pull/2375)
+- Fixed all `@skyux` packages' metadata files to be backwards compatible with TypeScript 2. [#2375](https://github.com/blackbaud/skyux2/pull/2375)
 
 # 2.54.0 (2019-08-06)
 
