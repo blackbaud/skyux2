@@ -26,6 +26,9 @@ function applyMetadataBackwardsCompatability() {
     metadataPatternConsumer
   ));
 
+  const numTotalFiles = files.length;
+  let numModifiedFiles = 0;
+
   files.forEach((file) => {
     const contents = fs.readFileSync(file, 'utf8').toString();
     const regExp = /"version":4/g;
@@ -41,7 +44,15 @@ function applyMetadataBackwardsCompatability() {
     fs.writeFileSync(file, updatedContents, {
       encoding: 'utf8'
     });
+
+    numModifiedFiles++;
   });
+
+  if (numModifiedFiles > 0) {
+    logger.info(`\nSuccessfully modified ${numModifiedFiles} of ${numTotalFiles} metadata files for backwards compatibility.\n`);
+  } else {
+    logger.info(`No incompatible metadata files found (out of ${numTotalFiles} files total).\n`);
+  }
 }
 
 applyMetadataBackwardsCompatability();
