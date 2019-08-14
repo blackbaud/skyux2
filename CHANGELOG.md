@@ -1,3 +1,7 @@
+# 2.54.1 (2019-08-14)
+
+- Fixed all `@skyux` packages metadata files to be backwards compatible with TypeScript 2. [#2375](https://github.com/blackbaud/skyux2/pull/2375)
+
 # 2.54.0 (2019-08-06)
 
 - Added the option to disable transparency slider on the colorpicker component. [blackbaud/skyux-colorpicker#20](https://github.com/blackbaud/skyux-colorpicker/pull/20) (Thanks [@jeffbdye](https://github.com/jeffbdye)!)
